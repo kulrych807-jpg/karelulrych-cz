@@ -1,29 +1,17 @@
-# Nový web karelulrych.cz — astrologie, horoskopy, karty + AI agent
+# Karel Ulrych – moderní web
 
-Hotový statický web pro doménu karelulrych.cz.
+Hotová moderní statická verze webu pro doménu karelulrych.cz.
 
-## Služby
-- Osobní horoskop
-- Partnerský horoskop
-- Prognóza na 3 roky
-- Mystické šamanské orákulum
-- OSHO Zen Tarot
-- Čakrové karty
+## Služby a ceny
 
-## Cílová skupina
-Ženy 35–50 let.
-
-## Stránky
-- index.html
-- sluzby.html
-- vyklad-karet.html
-- ai-agent.html
-- kontakt.html
-- eticky-ramec.html
-
-## AI agent
-Podklady jsou v adresáři automation/.
+- Osobní horoskop – 1 200 Kč
+- Partnerský horoskop – 1 200 Kč
+- Prognóza na 3 roky do budoucnosti – 1 500 Kč
+- Mystické Šamanské Orákulum – 1 000 Kč
+- OSHO Zen Tarot – 800 Kč
+- Čakrové karty – léčení mysli, těla i ducha – 1 200 Kč
+- Léčení Reiki – 500 Kč
 
 ## Nasazení
-Nahrajte všechny soubory do web rootu hostingu pro doménu karelulrych.cz.
-ChatGPT sám o sobě neposkytuje hosting ani nemůže změnit DNS bez vašeho přístupu k doméně/hostingu.
+
+Nahrajte soubory do GitHub repozitáře `karelulrych-cz` a potvrďte commit. Vercel automaticky provede deploy projektu připojeného k doméně karelulrych.cz.

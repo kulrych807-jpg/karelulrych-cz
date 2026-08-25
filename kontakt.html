@@ -1,5 +1,79 @@
-<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title><link rel="stylesheet" href="style.css">Kontakt | Karel Ulrych</title><meta name="description" content="Kontakt a orientační výběr služby: osobní horoskop, partnerský horoskop, prognóza nebo výklad karet."><meta property="og:title" content="Kontakt | Karel Ulrych"><meta property="og:description" content="Kontakt a orientační výběr služby: osobní horoskop, partnerský horoskop, prognóza nebo výklad karet."><meta property="og:type" content="website"><link rel="stylesheet" href="assets/style.css"></head><body>
-<header class="nav"><div class="container nav-inner"><a class="logo" href="index.html"><span class="logo-mark"></span><span>Karel Ulrych</span></a><nav class="nav-links"><a href="index.html">Úvod</a><a href="sluzby.html">Služby</a><a href="vyklad-karet.html">Výklad karet</a><a href="ai-agent.html">AI agent</a><a href="kontakt.html">Kontakt</a><a class="btn primary" href="kontakt.html#rezervace">Domluvit konzultaci</a></nav><a class="btn secondary mobile-toggle" href="kontakt.html">Kontakt</a></div></header>
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontakt | Karel Ulrych</title>
+  <meta name="description" content="Objednejte osobní horoskop, partnerský horoskop, výklad karet nebo Reiki.">
+  <meta property="og:title" content="Kontakt | Karel Ulrych">
+  <meta property="og:description" content="Objednejte osobní horoskop, partnerský horoskop, výklad karet nebo Reiki.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.karelulrych.cz/kontakt.html">
+  <link rel="canonical" href="https://www.karelulrych.cz/kontakt.html">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Karel Ulrych úvod">
+        <span class="brand-mark">✦</span>
+        <span>
+          <strong>Karel Ulrych</strong>
+          <small>Astrologie • Tarot • Reiki</small>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Hlavní navigace">
+        <a href="index.html">Úvod</a>
+        <a href="sluzby.html">Služby a ceny</a>
+        <a href="vyklad-karet.html">Výklad karet</a>
+        <a href="reiki.html">Reiki</a>
+        <a href="ai-agent.html">AI agent</a>
+        <a class="nav-cta" href="kontakt.html">Objednat konzultaci</a>
+      </nav>
+    </div>
+  </header>
+  
+<main>
+  <section class="page-hero"><div class="container"><span class="eyebrow">Kontakt</span><h1>Objednat konzultaci</h1><p class="lead">Napište, co právě řešíte, a vyberte službu. Ozvu se vám s návrhem termínu a dalším postupem.</p></div></section>
+  <section class="section"><div class="container contact-grid">
+    <form class="form" id="contact-form" data-webhook-url="">
+      <label>Jméno<input name="jmeno" required placeholder="Vaše jméno"></label>
+      <label>E-mail<input name="email" type="email" required placeholder="vas@email.cz"></label>
+      <label>Vybraná služba<select name="sluzba" required>
+        <option value="">Vyberte službu</option>
+        <option>Osobní horoskop – 1 200 Kč</option>
+        <option>Partnerský horoskop – 1 200 Kč</option>
+        <option>Prognóza na 3 roky – 1 500 Kč</option>
+        <option>Mystické Šamanské Orákulum – 1 000 Kč</option>
+        <option>OSHO Zen Tarot – 800 Kč</option>
+        <option>Čakrové karty – 1 200 Kč</option>
+        <option>Léčení Reiki – 500 Kč</option>
+        <option>Nejsem si jistá, potřebuji poradit</option>
+      </select></label>
+      <label>Zpráva<textarea name="zprava" rows="6" placeholder="Krátce popište, co právě řešíte."></textarea></label>
+      <button class="btn btn-primary" type="submit">Odeslat poptávku</button>
+      <p class="form-status" id="form-status"></p>
+    </form>
+    <aside class="contact-card"><h2>Co přiložit k horoskopu</h2><p>Pro astrologický výklad pomůže datum, čas a místo narození. U partnerského horoskopu údaje obou osob.</p><h3>Eticky a s respektem</h3><p>Výklady a Reiki slouží k sebereflexi a osobnímu rozvoji. Nenahrazují zdravotní, psychologickou, právní ani finanční pomoc.</p></aside>
+  </div></section>
+</main>
 
-<main><section class="hero" id="rezervace"><div class="container hero-grid"><div><span class="kicker">Kontakt a výběr služby</span><h1>Popište, s čím přicházíte. Navrhnu vhodný výklad.</h1><p class="lead">Krátký formulář slouží jako první jemná diagnostika. Výstup automaticky neurčuje výsledek; pouze připraví podklady pro osobní odpověď.</p></div><div class="card"><form id="mystic-funnel-form" class="form" data-webhook-url=""><label>Jméno</label><input name="name" placeholder="Vaše jméno"><label>E-mail</label><input name="email" type="email" placeholder="vas@email.cz"><label>O jakou službu máte zájem?</label><select name="service"><option value="">Vyberte...</option><option value="osobni_horoskop">Osobní horoskop</option><option value="partnersky_horoskop">Partnerský horoskop</option><option value="prognoza_3_roky">Prognóza na 3 roky</option><option value="mysticke_samanske_orakulum">Mystické šamanské orákulum</option><option value="osho_zen_tarot">OSHO Zen Tarot</option><option value="cakrove_karty">Čakrové karty</option><option value="nejsem_si_jista">Nejsem si jistá</option></select><label>Hlavní téma</label><select name="topic"><option value="">Vyberte...</option><option value="vztahy">Vztahy</option><option value="zivotni_smer">Životní směr</option><option value="prace">Práce a poslání</option><option value="vnitrni_blok">Vnitřní blok</option><option value="rodina">Rodina</option><option value="jine">Jiné</option></select><label>Máte připravené datum, čas a místo narození?</label><select name="birth_data"><option value="">Vyberte...</option><option value="ano">Ano</option><option value="castecne">Částečně</option><option value="ne">Ne</option><option value="nepotrebuji">Nepotřebuji pro výklad karet</option></select><label>Kdy chcete výklad?</label><select name="timeframe"><option value="">Vyberte...</option><option value="co_nejdrive">Co nejdříve</option><option value="do_14_dnu">Do 14 dnů</option><option value="tento_mesic">Tento měsíc</option><option value="nespecha">Nespěchá</option></select><label>Popište stručně svoji otázku nebo situaci</label><textarea name="challenge" placeholder="Co právě řešíte? Jaký vhled by vám pomohl?"></textarea><button class="btn primary" type="submit">Vyhodnotit a připravit podklady</button><p class="form-note">Odesláním formuláře nevzniká automatická odpověď ani závazek. Citlivé zprávy vždy posuzuje člověk.</p><div id="audit-result" class="result"><h3 id="score-status"></h3><p id="score-detail"></p></div></form></div></div></section><section><div class="container notice">Pro ostré nasazení doplňte v HTML atribut <code>data-webhook-url</code> pro Make, Zapier, n8n nebo vlastní CRM. Bez webhooku se výsledek zobrazí pouze na stránce.</div></section></main>
-<footer class="footer"><div class="container footer-grid"><div><div class="logo"><span class="logo-mark"></span><span>Karel Ulrych</span></div><p class="small">Astrologie, výklad karet a citlivě vedené konzultace pro ženy, které chtějí lépe porozumět sobě, vztahům a životním obdobím.</p><p class="small">Výklady a horoskopy slouží k sebereflexi a osobnímu rozvoji. Nenahrazují lékařskou, psychoterapeutickou, právní ani finanční péči.</p></div><div class="small"><strong>Kontakt</strong><br>e-mail: doplňte@email.cz<br>doména: karelulrych.cz</div></div></footer><script src="assets/app.js"></script></body></html>
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand footer-brand"><span class="brand-mark">✦</span><span><strong>Karel Ulrych</strong><small>Vnitřní vedení s respektem a klidem</small></span></div>
+        <p>Astrologie, výklad karet, čakrové karty a Reiki jako prostor pro sebereflexi, ztišení a vědomé rozhodování.</p>
+      </div>
+      <div>
+        <h3>Rychlý kontakt</h3>
+        <p><a href="kontakt.html">Objednat konzultaci</a><br><a href="mailto:doplnte@email.cz">doplnte@email.cz</a></p>
+      </div>
+      <div>
+        <h3>Etický rámec</h3>
+        <p>Výklady a konzultace nenahrazují lékařskou, psychoterapeutickou, právní ani finanční péči.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
