@@ -1,233 +1,238 @@
+/**
+ * Karel Ulrych – AI agent pro objednávky
+ * - vypočítá prioritu Normal / Hot / Priorita
+ * - doplní ji do formuláře odesílaného na ulrych.k@seznam.cz
+ * - uloží záznam do lokální administrace admin.html ke schválení
+ *
+ * Poznámka: statický web neumí bezpečně držet API klíče ani číst e-mailovou schránku.
+ * Tento agent zpracovává webové objednávky na straně prohlížeče.
+ */
 
-(function(){
-  const data = {
-    ja: {
-      title: "Osobní horoskop",
-      price: "1 200 Kč",
-      text: "Nejvhodnější volba, pokud chcete lépe pochopit sama sebe, svoje talenty, opakující se témata a vnitřní nastavení.",
-      link: "kontakt.html?sluzba=osobni-horoskop"
-    },
-    vztah: {
-      title: "Partnerský horoskop",
-      price: "1 200 Kč",
-      text: "Doporučení pro vztahová témata, kompatibilitu, rozdíly mezi partnery a hlubší pochopení vztahové dynamiky.",
-      link: "kontakt.html?sluzba=partnersky-horoskop"
-    },
-    budoucnost: {
-      title: "Prognóza na 3 roky",
-      price: "1 500 Kč",
-      text: "Vhodné při životní změně, nové etapě nebo potřebě vidět širší časový rámec a hlavní témata dalších let.",
-      link: "kontakt.html?sluzba=prognoza-3-roky"
-    },
-    rozhodnuti: {
-      title: "OSHO Zen Tarot",
-      price: "800 Kč",
-      text: "Jemný vhled do aktuální situace, rozhodování a vnitřního postoje. Neřeší tlakem, ale přítomným pochopením.",
-      link: "kontakt.html?sluzba=osho-zen-tarot"
-    },
-    energie: {
-      title: "Léčení Reiki",
-      price: "500 Kč",
-      text: "Doporučení pro zklidnění, uvolnění, harmonizaci a energetickou podporu v období únavy nebo vnitřního tlaku.",
-      link: "kontakt.html?sluzba=reiki"
-    },
-    duchovni: {
-      title: "Čakrové karty",
-      price: "1 200 Kč",
-      text: "Výklad zaměřený na léčení mysli, těla i ducha, energetická témata a návrat k vnitřní rovnováze.",
-      link: "kontakt.html?sluzba=cakrove-karty"
+(function () {
+  const ADMIN_KEY = "ku_orders";
+
+  function normalize(text) {
+    return (text || "").toString().toLowerCase();
+  }
+
+  function classifyOrder(data) {
+    const message = normalize(data.zprava);
+    const service = normalize(data.sluzba);
+    const term = normalize(data.termin);
+    const contact = normalize(data.preferovany_kontakt);
+    const phone = normalize(data.telefon);
+
+    const priorityWords = [
+      "urgent", "hned", "okamžitě", "dnes", "zítra", "krize",
+      "rozchod", "rozvod", "nevěra", "panika", "strach", "kolaps",
+      "nespím", "nemůžu spát", "zoufal", "priorita"
+    ];
+
+    const hotWords = [
+      "vztah", "partner", "partnerka", "manžel", "manželka", "budoucnost",
+      "rozhodnutí", "práce", "změna", "termín", "reiki", "karty",
+      "horoskop", "prognóza", "partnerský"
+    ];
+
+    let score = 0;
+    const reasons = [];
+
+    if (phone.trim().length > 5) {
+      score += 2;
+      reasons.push("klientka uvedla telefon");
     }
-  };
-  const btn = document.getElementById("recommendBtn");
-  const select = document.getElementById("topic");
-  const out = document.getElementById("recommendation");
-  if(btn && select && out){
-    btn.addEventListener("click", function(){
-      const item = data[select.value];
-      if(!item){
-        out.className = "recommendation show";
-        out.innerHTML = "<strong>Vyberte oblast</strong><p>Nejdřív zvolte, co právě nejvíc řešíte. Potom vám doporučím vhodnou službu.</p>";
-        return;
-      }
-      out.className = "recommendation show";
-      out.innerHTML = `<strong>${item.title}</strong><p>${item.text}</p><p><b>Cena: ${item.price}</b></p><a class="btn primary" href="${item.link}">Poptat tuto službu</a>`;
-    });
-  }
+    if (contact.includes("telefon") || contact.includes("sms")) {
+      score += 2;
+      reasons.push("preferuje rychlý kontakt");
+    }
+    if (term.includes("dnes") || term.includes("zítra") || term.includes("co nejdřív")) {
+      score += 4;
+      reasons.push("žádá rychlý termín");
+    }
+    if (service.includes("prognóza") || service.includes("partnerský") || service.includes("nejsem si jist")) {
+      score += 2;
+      reasons.push("služba vyžaduje osobnější vedení");
+    }
 
-  const form = document.getElementById("mystic-funnel-form");
-  if(form){
-    form.addEventListener("submit", async function(e){
-      e.preventDefault();
-      const result = document.getElementById("form-result");
-      const data = Object.fromEntries(new FormData(form).entries());
-      const webhook = form.getAttribute("data-webhook-url");
-      if(webhook){
-        try{
-          await fetch(webhook,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
-        }catch(err){}
-      }
-      if(result){
-        result.innerHTML = "<strong>Děkuji, zpráva je připravená.</strong><br>Pokud je napojený webhook, odešle se ke zpracování. Bez webhooku slouží formulář jako lokální ukázka.";
-        result.className = "recommendation show";
+    priorityWords.forEach((word) => {
+      if (message.includes(word) || term.includes(word)) {
+        score += 4;
+        reasons.push("obsahuje naléhavé téma: " + word);
       }
     });
-  }
 
-  const contactForm = document.getElementById("contact-form");
-  if(contactForm){
-    const params = new URLSearchParams(window.location.search);
-    const serviceMap = {
-      "osobni-horoskop": "Osobní horoskop – 1 200 Kč",
-      "partnersky-horoskop": "Partnerský horoskop – 1 200 Kč",
-      "prognoza-3-roky": "Prognóza na 3 roky – 1 500 Kč",
-      "samanske-orakulum": "Mystické Šamanské Orákulum – 1 000 Kč",
-      "osho-zen-tarot": "OSHO Zen Tarot – 800 Kč",
-      "cakrove-karty": "Čakrové karty – 1 200 Kč",
-      "reiki": "Léčení Reiki – 500 Kč"
+    hotWords.forEach((word) => {
+      if (message.includes(word) || service.includes(word)) {
+        score += 1;
+      }
+    });
+
+    let label = "Normal";
+    if (score >= 8) label = "Priorita";
+    else if (score >= 4) label = "Hot";
+
+    if (reasons.length === 0) {
+      reasons.push("běžná poptávka bez výrazné naléhavosti");
+    }
+
+    const summary = [
+      "Služba: " + (data.sluzba || "neuvedeno"),
+      "Klientka/klient: " + (data.jmeno || "neuvedeno"),
+      "Kontakt: " + (data.email || "neuvedeno") + (data.telefon ? ", " + data.telefon : ""),
+      "Termín: " + (data.termin || "neuvedeno"),
+      "Téma: " + ((data.zprava || "").trim().slice(0, 260) || "neuvedeno")
+    ].join(" | ");
+
+    return {
+      label,
+      score,
+      reason: reasons.slice(0, 4).join("; "),
+      summary
     };
-    const serviceSelect = document.getElementById("service-select");
-    const requested = params.get("sluzba");
-    if(serviceSelect && requested && serviceMap[requested]){
-      serviceSelect.value = serviceMap[requested];
-    }
-
-    contactForm.addEventListener("submit", async function(e){
-      e.preventDefault();
-      const status = document.getElementById("form-status");
-      const data = Object.fromEntries(new FormData(contactForm).entries());
-      const lines = [
-        "Dobrý den, pane Ulrychu,",
-        "",
-        "ráda bych objednala / poptala službu:",
-        data.sluzba || "",
-        "",
-        "Jméno: " + (data.jmeno || ""),
-        "E-mail: " + (data.email || ""),
-        "Telefon: " + (data.telefon || ""),
-        "",
-        "Datum narození: " + (data.datum_narozeni || ""),
-        "Čas narození: " + (data.cas_narozeni || ""),
-        "Místo narození: " + (data.misto_narozeni || ""),
-        "",
-        "Preferovaný kontakt: " + (data.preferovany_kontakt || ""),
-        "Ideální termín: " + (data.termin || ""),
-        "",
-        "Téma / zpráva:",
-        data.zprava || "",
-        "",
-        "Děkuji a prosím o návrh dalšího postupu.",
-        "",
-        "Odesláno z webu www.karelulrych.cz"
-      ];
-      const subject = "Objednávka konzultace – " + (data.sluzba || "Karel Ulrych");
-      const mailto = "mailto:ulrych.k@seznam.cz?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
-
-      const webhook = contactForm.getAttribute("data-webhook-url");
-      if(webhook){
-        try{
-          await fetch(webhook,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
-        }catch(err){}
-      }
-
-      if(status){
-        status.innerHTML = "E-mailová poptávka je připravená. Otevře se váš e-mailový program – stačí zkontrolovat text a odeslat.";
-        status.className = "form-status ok";
-      }
-      window.location.href = mailto;
-    });
   }
 
-})();
-
-
-// AI agent v7 – lokální testovací klasifikace a příprava schvalovacího e-mailu
-(function(){
-  const form = document.getElementById('aiMailForm');
-  if(!form) return;
-
-  const serviceRules = [
-    {key:'partnerský horoskop', service:'Partnerský horoskop', words:['partner','partnerský','vztah','manžel','přítel','rozchod','kompatibilita']},
-    {key:'osobní horoskop', service:'Osobní horoskop', words:['osobní','horoskop','datum narození','čas narození','já','talent','životní cesta']},
-    {key:'prognóza', service:'Prognóza na 3 roky', words:['budoucnost','prognóza','3 roky','tři roky','další roky','výhled']},
-    {key:'reiki', service:'Léčení Reiki', words:['reiki','energie','únava','harmonizace','zklidnění','uvolnění']},
-    {key:'tarot', service:'OSHO Zen Tarot / výklad karet', words:['tarot','karty','výklad','orákulum','šamanské','osho','čakrové']}
-  ];
-
-  function classify(text){
-    const t = (text || '').toLowerCase();
-    const hasOrder = ['objednat','objednávám','chci','prosím o','termín','cena','zaplatit','platba'].some(w => t.includes(w));
-    const hasUrgent = ['dnes','hned','urgentní','co nejdřív','rychle','akutně','změna termínu','platba','zaplatila','opakovaně'].some(w => t.includes(w));
-    const hasSensitive = ['krize','nemoc','deprese','úzkost','panika','léky','soud','právník','dluh','sebevraž'].some(w => t.includes(w));
-
-    let priority = 'Normal';
-    if(hasOrder) priority = 'Hot';
-    if(hasUrgent || hasSensitive) priority = 'Priorita';
-
-    let service = 'Neurčeno – doporučit podle tématu';
-    let best = 0;
-    serviceRules.forEach(rule => {
-      const score = rule.words.reduce((sum,w)=> sum + (t.includes(w) ? 1 : 0), 0);
-      if(score > best){ best = score; service = rule.service; }
-    });
-
-    const missing = [];
-    if(!/\b\d{1,2}\.\s?\d{1,2}\.\s?\d{4}\b/.test(t)) missing.push('datum narození');
-    if(!/\b\d{1,2}:\d{2}\b/.test(t) && !t.includes('čas narození')) missing.push('čas narození');
-    if(!['místo narození','narozena v','narozená v'].some(w => t.includes(w))) missing.push('místo narození');
-
-    return {priority, service, missing, hasSensitive};
-  }
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
+  function getFormData(form) {
     const fd = new FormData(form);
-    const clientName = fd.get('clientName') || 'Neuvedeno';
-    const clientEmail = fd.get('clientEmail') || 'Neuvedeno';
-    const subject = fd.get('subject') || 'Poptávka z webu';
-    const message = fd.get('message') || '';
-    const result = classify(subject + ' ' + message);
+    return Object.fromEntries(fd.entries());
+  }
 
-    const approvalNote = result.hasSensitive
-      ? 'POZOR: Zpráva obsahuje citlivější téma. Doporučeno osobní a opatrné posouzení. AI nesmí odeslat odpověď sama.'
-      : 'Výstup je připraven ke schválení. AI sama neodesílá odpověď klientce.';
+  function saveToAdmin(data, ai) {
+    const orders = JSON.parse(localStorage.getItem(ADMIN_KEY) || "[]");
+    orders.unshift({
+      id: "KU-" + new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14),
+      createdAt: new Date().toLocaleString("cs-CZ"),
+      status: "Čeká na schválení",
+      ai,
+      data
+    });
+    localStorage.setItem(ADMIN_KEY, JSON.stringify(orders.slice(0, 200)));
+  }
 
-    const draftReply = `Dobrý den,\n\nděkuji za zprávu a důvěru. Podle toho, co píšete, by pro vás mohla být vhodná služba: ${result.service}.\n\nAbych mohl připravit přesnější odpověď, prosím ještě o doplnění: ${result.missing.length ? result.missing.join(', ') : 'údaje jsou zřejmě kompletní'}.\n\nS úctou\nIng. Karel Ulrych`;
+  function handleContactForm() {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
 
-    const body =
-`AI AGENT – REPORT KE SCHVÁLENÍ
-
-Kategorie: ${result.priority}
-Typ: Poptávka / zpráva z webu
-Doporučená služba: ${result.service}
-Klientka: ${clientName}
-E-mail klientky: ${clientEmail}
-Předmět: ${subject}
-
-Chybějící údaje:
-${result.missing.length ? '- ' + result.missing.join('\n- ') : 'Žádné zásadní chybějící údaje nerozpoznány.'}
-
-Bezpečnostní poznámka:
-${approvalNote}
-
-Původní zpráva:
-${message}
-
-NÁVRH ODPOVĚDI KE SCHVÁLENÍ:
-${draftReply}
-
-STAV:
-Odeslat klientce: NE
-Čeká na schválení: Ing. Karel Ulrych`;
-
-    const mailto = 'mailto:ulrych.k@seznam.cz'
-      + '?subject=' + encodeURIComponent('[AI agent][' + result.priority + '] ' + subject)
-      + '&body=' + encodeURIComponent(body);
-
-    const status = document.getElementById('aiMailStatus');
-    if(status){
-      status.className = 'form-status ok';
-      status.textContent = 'Report je připraven. Otevře se e-mail na ulrych.k@seznam.cz ke schválení.';
+    const status = document.getElementById("form-status");
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("odeslano") === "1" && status) {
+      status.textContent = "Děkuji, poptávka byla odeslána na e-mail a zařazena ke zpracování.";
     }
-    window.location.href = mailto;
+
+    form.addEventListener("submit", function (event) {
+      if (!form.checkValidity()) return;
+
+      const data = getFormData(form);
+      const ai = classifyOrder(data);
+
+      const p = document.getElementById("ai-priority");
+      const r = document.getElementById("ai-reason");
+      const s = document.getElementById("ai-summary");
+      const subject = document.getElementById("ai-subject");
+
+      if (p) p.value = ai.label;
+      if (r) r.value = ai.reason;
+      if (s) s.value = ai.summary;
+      if (subject) subject.value = "[" + ai.label + "] Nová objednávka – " + (data.sluzba || "služba");
+
+      saveToAdmin(data, ai);
+
+      if (status) {
+        status.textContent = "AI agent zařadil poptávku jako " + ai.label + ". Odesílám na ulrych.k@seznam.cz…";
+      }
+    });
+  }
+
+  function escapeHtml(value) {
+    return (value || "").toString().replace(/[&<>"']/g, function (char) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char];
+    });
+  }
+
+  function mailtoFor(order) {
+    const d = order.data || {};
+    const subject = encodeURIComponent("Odpověď k objednávce – " + (d.sluzba || ""));
+    const body = encodeURIComponent(
+      "Dobrý den,\n\n" +
+      "děkuji za Vaši poptávku: " + (d.sluzba || "") + ".\n\n" +
+      "Navrhuji další postup:\n\n\n" +
+      "S úctou\nIng. Karel Ulrych\n"
+    );
+    return "mailto:" + encodeURIComponent(d.email || "") + "?subject=" + subject + "&body=" + body;
+  }
+
+  function renderAdmin() {
+    const root = document.getElementById("admin-orders");
+    if (!root) return;
+
+    const orders = JSON.parse(localStorage.getItem(ADMIN_KEY) || "[]");
+    const counts = orders.reduce((acc, o) => {
+      acc[o.ai.label] = (acc[o.ai.label] || 0) + 1;
+      return acc;
+    }, { Normal: 0, Hot: 0, Priorita: 0 });
+
+    const cards = `
+      <div class="admin-stats">
+        <div class="card"><strong>Normal</strong><span>${counts.Normal || 0}</span></div>
+        <div class="card"><strong>Hot</strong><span>${counts.Hot || 0}</span></div>
+        <div class="card"><strong>Priorita</strong><span>${counts.Priorita || 0}</span></div>
+      </div>
+    `;
+
+    if (orders.length === 0) {
+      root.innerHTML = cards + '<div class="card"><p>Zatím zde není žádná objednávka z tohoto prohlížeče.</p><p>Nové poptávky zároveň chodí na e-mail <strong>ulrych.k@seznam.cz</strong>.</p></div>';
+      return;
+    }
+
+    const rows = orders.map((o, idx) => {
+      const d = o.data || {};
+      const cls = o.ai.label === "Priorita" ? "priority" : o.ai.label === "Hot" ? "hot" : "normal";
+      return `
+        <article class="card admin-order ${cls}">
+          <div class="admin-row">
+            <div>
+              <span class="pill-soft">${escapeHtml(o.ai.label)}</span>
+              <h3>${escapeHtml(d.sluzba || "Bez služby")}</h3>
+              <p><strong>${escapeHtml(d.jmeno || "")}</strong> · ${escapeHtml(d.email || "")} · ${escapeHtml(d.telefon || "")}</p>
+              <p><strong>Vytvořeno:</strong> ${escapeHtml(o.createdAt)} · <strong>Stav:</strong> ${escapeHtml(o.status)}</p>
+            </div>
+            <div class="admin-actions">
+              <a class="btn primary" href="${mailtoFor(o)}">Připravit odpověď</a>
+              <button class="btn ghost" data-approve="${idx}">Schválit</button>
+              <button class="btn ghost" data-delete="${idx}">Smazat</button>
+            </div>
+          </div>
+          <p><strong>AI důvod:</strong> ${escapeHtml(o.ai.reason)}</p>
+          <p><strong>Souhrn:</strong> ${escapeHtml(o.ai.summary)}</p>
+          <p><strong>Téma:</strong><br>${escapeHtml(d.zprava || "")}</p>
+        </article>
+      `;
+    }).join("");
+
+    root.innerHTML = cards + rows;
+
+    root.querySelectorAll("[data-approve]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const i = Number(btn.getAttribute("data-approve"));
+        orders[i].status = "Schváleno Karlem";
+        localStorage.setItem(ADMIN_KEY, JSON.stringify(orders));
+        renderAdmin();
+      });
+    });
+
+    root.querySelectorAll("[data-delete]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const i = Number(btn.getAttribute("data-delete"));
+        if (confirm("Opravdu smazat objednávku z lokální administrace?")) {
+          orders.splice(i, 1);
+          localStorage.setItem(ADMIN_KEY, JSON.stringify(orders));
+          renderAdmin();
+        }
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    handleContactForm();
+    renderAdmin();
   });
 })();

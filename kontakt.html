@@ -45,12 +45,20 @@
 
   <section class="section">
     <div class="container contact-grid">
-      <form class="form card order-form" id="contact-form" data-webhook-url="">
+      <form class="form card order-form" id="contact-form" action="https://formsubmit.co/ulrych.k@seznam.cz" method="POST">
         <div class="form-head">
           <span class="pill-soft">Rychlá objednávka</span>
           <h2>Vyberte službu a pošlete mi podklady</h2>
-          <p>Formulář otevře připravený e-mail s vyplněnou poptávkou. Před odesláním si text můžete upravit.</p>
+          <p>Po odeslání formulář odešle poptávku na e-mail ulrych.k@seznam.cz. AI agent ji zároveň označí jako Normal / Hot / Priorita a uloží do lokální administrace ke schválení.</p>
         </div>
+        <input type="hidden" name="_subject" id="ai-subject" value="Nová poptávka z webu karelulrych.cz">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://www.karelulrych.cz/kontakt.html?odeslano=1">
+        <input type="hidden" name="AI třídění" id="ai-priority" value="Normal">
+        <input type="hidden" name="AI důvod třídění" id="ai-reason" value="">
+        <input type="hidden" name="AI souhrn" id="ai-summary" value="">
+        <input type="hidden" name="Stav" value="Čeká na schválení Ing. Karlem Ulrychem">
 
         <label>Jméno a příjmení
           <input name="jmeno" required placeholder="Vaše jméno">
@@ -114,8 +122,9 @@
           <span>Souhlasím se zpracováním údajů za účelem vyřízení poptávky. Beru na vědomí, že horoskopy, karty a Reiki jsou seberozvojová a duchovní podpora, nikoli zdravotní, psychologická, právní nebo finanční služba.</span>
         </label>
 
-        <button class="btn primary" type="submit">Připravit e-mailovou poptávku</button>
+        <button class="btn primary" type="submit">Odeslat poptávku ke zpracování AI agentem</button>
         <p class="form-status" id="form-status"></p>
+        <p class="small-note">Po odeslání dorazí poptávka na e-mail a současně se zařadí do administrace: <a href="admin.html">admin.html</a>.</p>
 
         <div class="direct-contact">
           <p><strong>Nebo napište přímo:</strong></p>

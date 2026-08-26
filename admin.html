@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administrace objednávek | Karel Ulrych</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Lokální administrace objednávek z webu Karel Ulrych.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .admin-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0}
+    .admin-stats .card{padding:18px;text-align:center}
+    .admin-stats span{display:block;font-size:36px;font-weight:800;margin-top:6px}
+    .admin-order{margin-bottom:18px;border-left:8px solid rgba(120,120,120,.25)}
+    .admin-order.priority{border-left-color:#b70038}
+    .admin-order.hot{border-left-color:#ff8a00}
+    .admin-order.normal{border-left-color:#6d63ff}
+    .admin-row{display:flex;gap:20px;justify-content:space-between;align-items:flex-start}
+    .admin-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .small-note{font-size:.92rem;opacity:.78}
+    @media(max-width:800px){.admin-stats{grid-template-columns:1fr}.admin-row{display:block}.admin-actions{justify-content:flex-start;margin-top:14px}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Karel Ulrych úvod">
+        <span class="brand-mark">✦</span>
+        <span><strong>Karel Ulrych</strong></span>
+      </a>
+      <nav class="nav-links">
+        <a href="sluzby.html">Služby</a>
+        <a href="vyklad-karet.html">Výklad karet</a>
+        <a href="reiki.html">Reiki</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a href="ai-agent.html">AI agent</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="kicker">Administrace</span>
+        <h1>AI třídění objednávek</h1>
+        <p class="lead">Poptávky z objednávkového formuláře se řadí do kategorií Normal / Hot / Priorita. Každý výstup zůstává ke schválení Ing. Karlem Ulrychem.</p>
+        <p class="small-note">Poznámka: tato administrace je lokální pro tento prohlížeč. E-mailové kopie poptávek chodí na ulrych.k@seznam.cz. Pro centrální administraci ze všech zařízení je připravený návod pro Make/n8n ve složce automation.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container" id="admin-orders"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© Ing. Karel Ulrych – všechna práva vyhrazena.</p>
+      <p>Karel Ulrych – vnitřní vedení s respektem a klidem.</p>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -12,6 +12,38 @@
   <meta property="og:url" content="https://www.karelulrych.cz/vyklad-karet.html">
   <link rel="canonical" href="https://www.karelulrych.cz/vyklad-karet.html">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Oprava rozestupů u výkladu karet */
+    .cards {
+      gap: 28px;
+    }
+    .service-card.large {
+      margin-bottom: 24px;
+      padding-bottom: 28px;
+    }
+    .service-card.large h2 {
+      margin-bottom: 14px;
+      line-height: 1.18;
+    }
+    .service-card.large p {
+      margin-bottom: 18px;
+    }
+    .service-card.large strong,
+    .service-card .price-line {
+      display: block;
+      margin: 22px 0 20px;
+      font-size: 1.18rem;
+      line-height: 1.4;
+    }
+    .service-card.large a {
+      margin-top: 4px;
+      display: inline-flex;
+    }
+    @media (max-width: 760px) {
+      .cards { gap: 22px; }
+      .service-card.large { margin-bottom: 18px; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -37,9 +69,21 @@
 <main>
   <section class="page-hero"><div class="container"><span class="eyebrow">Karty</span><h1>Výklad karet</h1><p class="lead">Tři cesty, jeden záměr: podívat se na situaci citlivě, symbolicky a bez nátlaku.</p></div></section>
   <section class="section"><div class="container cards">
-    <article class="service-card large"><span>Orákulum</span><h2>Mystické Šamanské Orákulum</h2><p>Pro hlubší vedení, otázky životního směru, vnitřních bloků a archetypálních témat.</p><strong>1 000 Kč</strong><a href="kontakt.html">Objednat výklad</a></article>
-    <article class="service-card large"><span>Tarot</span><h2>OSHO Zen Tarot</h2><p>Pro vhled do přítomnosti, emocí, vztahů a postoje, který právě nejvíce ovlivňuje situaci.</p><strong>800 Kč</strong><a href="kontakt.html">Objednat výklad</a></article>
-    <article class="service-card large featured"><span>Čakry</span><h2>Čakrové karty</h2><p>Léčení mysli, těla i ducha. Výklad pro harmonizaci, jemné pojmenování bloků a návrat k sobě.</p><strong>1 200 Kč</strong><a href="kontakt.html">Objednat výklad</a></article>
+    <article class="service-card large">
+      <span>Orákulum</span>
+      <h2>Mystické Šamanské Orákulum</h2>
+      <p>Pro hlubší vedení, otázky životního směru, vnitřních bloků a archetypálních témat.</p><strong class="price-line">1 000 Kč</strong>
+      <a href="kontakt.html">Objednat výklad</a></article>
+    <article class="service-card large">
+      <span>Tarot</span>
+      <h2>OSHO Zen Tarot</h2>
+      <p>Pro vhled do přítomnosti, emocí, vztahů a postoje, který právě nejvíce ovlivňuje situaci.</p><strong class="price-line">800 Kč</strong>
+      <a href="kontakt.html">Objednat výklad</a></article>
+    <article class="service-card large featured">
+      <span>Čakry</span>
+      <h2>Čakrové karty</h2>
+      <p>Léčení mysli, těla i ducha. Výklad pro harmonizaci, jemné pojmenování bloků a návrat k sobě.</p><strong class="price-line">1 200 Kč</strong>
+      <a href="kontakt.html">Objednat výklad</a></article>
   </div></section>
 </main>
 

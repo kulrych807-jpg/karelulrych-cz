@@ -1,29 +1,22 @@
-# Rychlé nasazení v3
+# Rychlé nasazení v9
 
-1. Otevřete GitHub repozitář `kulrych807-jpg/karelulrych-cz`.
-2. Klikněte `Add file → Upload files`.
-3. Nahrajte všechny soubory z rozbalené složky.
-4. Potvrďte `Commit changes`.
-5. Vercel projekt `karelulrych-cz-gyia` nasadí novou verzi automaticky.
+Na GitHub nahraj minimálně:
 
-Pokud Vercel nenasadí změny automaticky:
-- otevřete Vercel,
-- projekt `karelulrych-cz-gyia`,
-- `Deployments`,
-- klikněte `Redeploy`.
+- kontakt.html
+- app.js
+- admin.html
+- ai-agent.html
+- automation/
 
-Po nasazení ověřte:
-https://www.karelulrych.cz
+Potom Commit changes.
+Vercel změnu automaticky nasadí.
 
+Administrace:
+https://www.karelulrych.cz/admin.html
 
-## Aktualizace v5
-Doplněna patička: © Ing. Karel Ulrych – všechna práva vyhrazena. Karel Ulrych – vnitřní vedení s respektem a klidem.
-
-
-### Aktualizace v6
-Nahrajte celý obsah ZIPu do GitHub repozitáře a potvrďte Commit changes. Důležité soubory: kontakt.html, index.html, app.js, style.css.
-
-
-## AI agent v7
-
-Po nahrání ZIPu bude na webu stránka `ai-agent.html` s testovacím agentem. Pro skutečné autonomní zpracování příchozí pošty propojte složku `automation` s Make, n8n, Zapierem nebo vlastním backendem.
+Test:
+1. Otevři Kontakt.
+2. Vyplň formulář.
+3. Odešli.
+4. Pokud přijde aktivační e-mail FormSubmit, potvrď ho.
+5. Otevři admin.html a zkontroluj zařazení Normal / Hot / Priorita.

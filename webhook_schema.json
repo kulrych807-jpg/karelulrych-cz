@@ -1,7 +1,15 @@
 {
   "jmeno": "string",
   "email": "string",
+  "telefon": "string",
   "sluzba": "string",
+  "datum_narozeni": "string",
+  "cas_narozeni": "string",
+  "misto_narozeni": "string",
+  "preferovany_kontakt": "string",
+  "termin": "string",
   "zprava": "string",
-  "source": "karelulrych.cz"
+  "ai_trida": "Normal|Hot|Priorita",
+  "ai_duvod": "string",
+  "stav": "Čeká na schválení"
 }
