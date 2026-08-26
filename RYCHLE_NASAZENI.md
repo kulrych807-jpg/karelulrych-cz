@@ -1,22 +1,16 @@
-# Rychlé nasazení v9
+# Rychlé nasazení v10
 
-Na GitHub nahraj minimálně:
+1. Rozbalte ZIP.
+2. Na GitHubu otevřete repozitář karelulrych-cz.
+3. Nahrajte celý obsah ZIPu přes Add file → Upload files.
+4. Klikněte Commit changes.
+5. Vercel automaticky nasadí novou verzi.
 
+Minimálně nahrajte:
+- obchodni-podminky.html
+- ochrana-osobnich-udaju.html
 - kontakt.html
-- app.js
-- admin.html
-- ai-agent.html
-- automation/
+- všechny HTML stránky, aby se v patičce zobrazily nové odkazy
 
-Potom Commit changes.
-Vercel změnu automaticky nasadí.
-
-Administrace:
-https://www.karelulrych.cz/admin.html
-
-Test:
-1. Otevři Kontakt.
-2. Vyplň formulář.
-3. Odešli.
-4. Pokud přijde aktivační e-mail FormSubmit, potvrď ho.
-5. Otevři admin.html a zkontroluj zařazení Normal / Hot / Priorita.
+Poznámka:
+V dokumentech je potřeba doplnit adresu sídla / doručovací adresu.

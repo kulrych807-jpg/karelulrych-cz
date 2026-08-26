@@ -1,13 +1,10 @@
-# Karel Ulrych – v9 AI objednávky + administrace
+# KarelUlrych.cz – v10 právní stránky
 
-Tato verze opravuje objednávkový proces:
-
-- objednávkový formulář už neotevírá jen připravený mailto e-mail
-- formulář odesílá poptávku na ulrych.k@seznam.cz přes FormSubmit
-- AI agent před odesláním zařadí poptávku jako Normal / Hot / Priorita
-- záznam se uloží do lokální administrace admin.html
-- odpovědi klientkám zůstávají ke schválení Ing. Karlem Ulrychem
+Doplněno:
+- obchodni-podminky.html
+- ochrana-osobnich-udaju.html
+- odkazy na Obchodní podmínky a Ochranu osobních údajů v patičce všech stránek
+- souhlas u objednávkového formuláře s odkazy na právní stránky
 
 Důležité:
-Při prvním odeslání může FormSubmit poslat na ulrych.k@seznam.cz aktivační e-mail.
-Stačí ho potvrdit a další poptávky už budou chodit přímo.
+Před ostrým spuštěním doplňte v obou právních dokumentech adresu sídla / doručovací adresu.
