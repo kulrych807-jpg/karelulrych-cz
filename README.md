@@ -1,9 +1,6 @@
-# Karel Ulrych – moderní web
+# karelulrych.cz – Funnelová homepage v3
 
-Hotová moderní statická verze webu pro doménu karelulrych.cz.
-
-## Služby a ceny
-
+Moderní konverzní homepage pro služby:
 - Osobní horoskop – 1 200 Kč
 - Partnerský horoskop – 1 200 Kč
 - Prognóza na 3 roky do budoucnosti – 1 500 Kč
@@ -12,6 +9,38 @@ Hotová moderní statická verze webu pro doménu karelulrych.cz.
 - Čakrové karty – léčení mysli, těla i ducha – 1 200 Kč
 - Léčení Reiki – 500 Kč
 
+## Co je nové
+
+- funnelová hlavní stránka,
+- doporučovací blok „Nevíte, co zvolit?“,
+- jasné CTA pro každou službu,
+- modernější barevný design,
+- profilová fotografie v hero sekci,
+- ceny a služby přímo na homepage.
+
 ## Nasazení
 
-Nahrajte soubory do GitHub repozitáře `karelulrych-cz` a potvrďte commit. Vercel automaticky provede deploy projektu připojeného k doméně karelulrych.cz.
+1. Rozbal ZIP.
+2. V GitHub repozitáři `karelulrych-cz` zvol `Add file → Upload files`.
+3. Nahraj obsah rozbalené složky.
+4. Klikni `Commit changes`.
+5. Vercel automaticky nasadí změny na `www.karelulrych.cz`.
+
+Důležité soubory k nahrání:
+- `index.html`
+- `style.css`
+- `app.js`
+- `karel-ulrych-profil.jpg`
+- ostatní HTML stránky podle potřeby
+
+
+## Aktualizace v4 – kontakt doplněn
+- Ing. Karel Ulrych
+- tel: +420 737 477 832
+- e-mail: ulrych.k@seznam.cz
+- IČO: 05674654
+- číslo účtu: 2003038329/2010
+
+
+## Aktualizace v5
+Doplněna patička: © Ing. Karel Ulrych – všechna práva vyhrazena. Karel Ulrych – vnitřní vedení s respektem a klidem.

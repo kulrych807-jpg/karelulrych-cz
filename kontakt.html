@@ -8,6 +8,7 @@
   <meta property="og:title" content="Kontakt | Karel Ulrych">
   <meta property="og:description" content="Objednejte osobní horoskop, partnerský horoskop, výklad karet nebo Reiki.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="karel-ulrych-profil.jpg">
   <meta property="og:url" content="https://www.karelulrych.cz/kontakt.html">
   <link rel="canonical" href="https://www.karelulrych.cz/kontakt.html">
   <link rel="stylesheet" href="style.css">
@@ -34,46 +35,79 @@
   </header>
   
 <main>
-  <section class="page-hero"><div class="container"><span class="eyebrow">Kontakt</span><h1>Objednat konzultaci</h1><p class="lead">Napište, co právě řešíte, a vyberte službu. Ozvu se vám s návrhem termínu a dalším postupem.</p></div></section>
-  <section class="section"><div class="container contact-grid">
-    <form class="form" id="contact-form" data-webhook-url="">
-      <label>Jméno<input name="jmeno" required placeholder="Vaše jméno"></label>
-      <label>E-mail<input name="email" type="email" required placeholder="vas@email.cz"></label>
-      <label>Vybraná služba<select name="sluzba" required>
-        <option value="">Vyberte službu</option>
-        <option>Osobní horoskop – 1 200 Kč</option>
-        <option>Partnerský horoskop – 1 200 Kč</option>
-        <option>Prognóza na 3 roky – 1 500 Kč</option>
-        <option>Mystické Šamanské Orákulum – 1 000 Kč</option>
-        <option>OSHO Zen Tarot – 800 Kč</option>
-        <option>Čakrové karty – 1 200 Kč</option>
-        <option>Léčení Reiki – 500 Kč</option>
-        <option>Nejsem si jistá, potřebuji poradit</option>
-      </select></label>
-      <label>Zpráva<textarea name="zprava" rows="6" placeholder="Krátce popište, co právě řešíte."></textarea></label>
-      <button class="btn btn-primary" type="submit">Odeslat poptávku</button>
-      <p class="form-status" id="form-status"></p>
-    </form>
-    <aside class="contact-card"><h2>Co přiložit k horoskopu</h2><p>Pro astrologický výklad pomůže datum, čas a místo narození. U partnerského horoskopu údaje obou osob.</p><h3>Eticky a s respektem</h3><p>Výklady a Reiki slouží k sebereflexi a osobnímu rozvoji. Nenahrazují zdravotní, psychologickou, právní ani finanční pomoc.</p></aside>
-  </div></section>
+  <section class="page-hero">
+    <div class="container">
+      <span class="kicker">Kontakt</span>
+      <h1>Objednat konzultaci</h1>
+      <p class="lead">Napište, co právě řešíte, a vyberte službu. Ozvu se vám s návrhem termínu a dalším postupem.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <form class="form card" id="contact-form" data-webhook-url="">
+        <label>Jméno<input name="jmeno" required placeholder="Vaše jméno"></label>
+        <label>E-mail<input name="email" type="email" required placeholder="vas@email.cz"></label>
+        <label>Telefon<input name="telefon" type="tel" placeholder="+420"></label>
+        <label>Vybraná služba<select name="sluzba" required>
+          <option value="">Vyberte službu</option>
+          <option>Osobní horoskop – 1 200 Kč</option>
+          <option>Partnerský horoskop – 1 200 Kč</option>
+          <option>Prognóza na 3 roky – 1 500 Kč</option>
+          <option>Mystické Šamanské Orákulum – 1 000 Kč</option>
+          <option>OSHO Zen Tarot – 800 Kč</option>
+          <option>Čakrové karty – 1 200 Kč</option>
+          <option>Léčení Reiki – 500 Kč</option>
+          <option>Nejsem si jistá, potřebuji poradit</option>
+        </select></label>
+        <label>Zpráva<textarea name="zprava" rows="6" placeholder="Krátce popište, co právě řešíte. U horoskopu doplňte datum, čas a místo narození."></textarea></label>
+        <button class="btn primary" type="submit">Odeslat poptávku</button>
+        <p class="form-status" id="form-status"></p>
+      </form>
+
+      <aside class="contact-card card">
+        <h2>Kontakt</h2>
+        <p><strong>Ing. Karel Ulrych</strong></p>
+        <p><strong>Telefon:</strong><br><a href="tel:+420737477832">+420 737 477 832</a></p>
+        <p><strong>E-mail:</strong><br><a href="mailto:ulrych.k@seznam.cz">ulrych.k@seznam.cz</a></p>
+        <p><strong>IČO:</strong><br>05674654</p>
+        <p><strong>Číslo účtu:</strong><br>2003038329/2010</p>
+        <hr>
+        <h3>Co přiložit k horoskopu</h3>
+        <p>Pro astrologický výklad pomůže datum, čas a místo narození. U partnerského horoskopu údaje obou osob.</p>
+        <h3>Eticky a s respektem</h3>
+        <p>Výklady a Reiki slouží k sebereflexi a osobnímu rozvoji. Nenahrazují zdravotní, psychologickou, právní ani finanční pomoc.</p>
+      </aside>
+    </div>
+  </section>
 </main>
 
   <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <div class="brand footer-brand"><span class="brand-mark">✦</span><span><strong>Karel Ulrych</strong><small>Vnitřní vedení s respektem a klidem</small></span></div>
-        <p>Astrologie, výklad karet, čakrové karty a Reiki jako prostor pro sebereflexi, ztišení a vědomé rozhodování.</p>
-      </div>
-      <div>
-        <h3>Rychlý kontakt</h3>
-        <p><a href="kontakt.html">Objednat konzultaci</a><br><a href="mailto:doplnte@email.cz">doplnte@email.cz</a></p>
-      </div>
-      <div>
-        <h3>Etický rámec</h3>
-        <p>Výklady a konzultace nenahrazují lékařskou, psychoterapeutickou, právní ani finanční péči.</p>
-      </div>
+  <div class="container footer-grid footer-grid-3">
+    <div>
+      <div class="logo"><span class="logo-mark"></span><span>Ing. Karel Ulrych</span></div>
+      <p class="small">Horoskopy, výklad karet a Reiki jako seberozvojová a duchovní podpora. Nenahrazuje lékařskou, psychoterapeutickou, právní ani finanční péči.</p>
     </div>
-  </footer>
+    <div class="small">
+      <strong>Kontakt</strong><br>
+      <a href="tel:+420737477832">+420 737 477 832</a><br>
+      <a href="mailto:ulrych.k@seznam.cz">ulrych.k@seznam.cz</a><br>
+      IČO: 05674654<br>
+      Číslo účtu: 2003038329/2010
+    </div>
+    <div class="small">
+      <strong>Rychlé odkazy</strong><br>
+      <a href="sluzby.html">Služby</a><br>
+      <a href="vyklad-karet.html">Výklad karet</a><br>
+      <a href="reiki.html">Reiki</a><br>
+      <a href="kontakt.html">Kontakt</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© Ing. Karel Ulrych – všechna práva vyhrazena.</p>
+    <p>Karel Ulrych – vnitřní vedení s respektem a klidem.</p>
+  </div>
+</footer>
   <script src="app.js"></script>
 </body>
 </html>

@@ -14,3 +14,7 @@ Pokud Vercel nenasadí změny automaticky:
 
 Po nasazení ověřte:
 https://www.karelulrych.cz
+
+
+## Aktualizace v5
+Doplněna patička: © Ing. Karel Ulrych – všechna práva vyhrazena. Karel Ulrych – vnitřní vedení s respektem a klidem.
