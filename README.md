@@ -8,3 +8,8 @@ Doplněno:
 
 Důležité:
 Před ostrým spuštěním doplňte v obou právních dokumentech adresu sídla / doručovací adresu.
+
+
+## v11 – doplněná adresa sídla a doručovací adresa
+
+Doplněno: Ing. Karel Ulrych, Havířská 1989, 470 01 Česká Lípa, Česká republika.

@@ -14,3 +14,7 @@ Minimálně nahrajte:
 
 Poznámka:
 V dokumentech je potřeba doplnit adresu sídla / doručovací adresu.
+
+
+## v11
+Nahrajte celý obsah ZIPu na GitHub a potvrďte Commit changes. Doplněna adresa do kontaktu, patičky, obchodních podmínek a ochrany osobních údajů.
