@@ -1,10 +1,16 @@
-# Rychlé nasazení
+# Rychlé nasazení v3
 
-1. Rozbalte ZIP.
-2. V GitHub repozitáři `karelulrych-cz` klikněte `Add file -> Upload files`.
-3. Přetáhněte všechny soubory z rozbalené složky.
+1. Otevřete GitHub repozitář `kulrych807-jpg/karelulrych-cz`.
+2. Klikněte `Add file → Upload files`.
+3. Nahrajte všechny soubory z rozbalené složky.
 4. Potvrďte `Commit changes`.
-5. Vercel automaticky nasadí novou verzi.
-6. Ověřte `https://www.karelulrych.cz`.
+5. Vercel projekt `karelulrych-cz-gyia` nasadí novou verzi automaticky.
 
-Soubor `style.css` je přímo v kořeni, stejně jako `app.js`, aby odpovídal aktuální struktuře repozitáře.
+Pokud Vercel nenasadí změny automaticky:
+- otevřete Vercel,
+- projekt `karelulrych-cz-gyia`,
+- `Deployments`,
+- klikněte `Redeploy`.
+
+Po nasazení ověřte:
+https://www.karelulrych.cz

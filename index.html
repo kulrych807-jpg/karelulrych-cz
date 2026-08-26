@@ -2,138 +2,211 @@
 <html lang="cs">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Karel Ulrych | Astrologie, tarot, Reiki</title>
-  <meta name="description" content="Moderní web pro astrologii, osobní a partnerské horoskopy, výklad karet a Reiki.">
-  <meta property="og:title" content="Karel Ulrych | Astrologie, tarot, Reiki">
-  <meta property="og:description" content="Moderní web pro astrologii, osobní a partnerské horoskopy, výklad karet a Reiki.">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Karel Ulrych | Horoskopy, výklad karet a Reiki</title>
+  <meta name="description" content="Osobní horoskop, partnerský horoskop, prognóza na 3 roky, výklad karet a Reiki pro ženy, které hledají jasno, klid a další životní směr.">
+  <meta property="og:title" content="Karel Ulrych | Horoskopy, karty a Reiki">
+  <meta property="og:description" content="Pomáhám ženám najít odpovědi v období změn, vztahových otázek a vnitřního hledání.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.karelulrych.cz/">
-  <link rel="canonical" href="https://www.karelulrych.cz/">
+  <meta property="og:image" content="karel-ulrych-profil.jpg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Karel Ulrych úvod">
-        <span class="brand-mark">✦</span>
-        <span>
-          <strong>Karel Ulrych</strong>
-          <small>Astrologie • Tarot • Reiki</small>
-        </span>
-      </a>
-      <nav class="nav-links" aria-label="Hlavní navigace">
-        <a href="index.html">Úvod</a>
-        <a href="sluzby.html">Služby a ceny</a>
-        <a href="vyklad-karet.html">Výklad karet</a>
-        <a href="reiki.html">Reiki</a>
-        <a href="ai-agent.html">AI agent</a>
-        <a class="nav-cta" href="kontakt.html">Objednat konzultaci</a>
-      </nav>
-    </div>
-  </header>
-  
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html"><span class="logo-mark"></span><span>Karel Ulrych</span></a>
+    <nav class="nav-links">
+      <a href="#sluzby">Služby</a>
+      <a href="#doporučení">Nevím, co zvolit</a>
+      <a href="vyklad-karet.html">Výklad karet</a>
+      <a href="reiki.html">Reiki</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a class="btn primary" href="#rezervace">Objednat konzultaci</a>
+    </nav>
+  </div>
+</header>
+
 <main>
-  <section class="hero">
+  <section class="hero hero-funnel">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow">Astrologie • Tarot • Orákulum • Reiki</span>
-        <h1>Pomáhám ženám znovu slyšet vlastní vnitřní kompas.</h1>
-        <p class="lead">Moderně vedené horoskopy, výklady karet a Reiki pro ženy, které stojí na prahu změny, hledají porozumění ve vztazích nebo chtějí lépe pochopit další životní období.</p>
+        <span class="kicker">Horoskopy • Výklad karet • Reiki</span>
+        <h1>Pomáhám ženám najít odpovědi v období změn, vztahových otázek a vnitřního hledání.</h1>
+        <p class="lead">Citlivě vedené horoskopy, tarotové a orákulové výklady a Reiki pro ženy, které chtějí lépe porozumět sobě, vztahům a dalšímu životnímu kroku.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="kontakt.html">Objednat konzultaci</a>
-          <a class="btn btn-soft" href="sluzby.html">Zobrazit služby a ceny</a>
+          <a class="btn primary large" href="#sluzby">Vybrat službu</a>
+          <a class="btn secondary large" href="#doporučení">Nevím, co zvolit</a>
         </div>
         <div class="trust-row">
-          <span>Citlivý přístup</span>
           <span>Bez nátlaku</span>
-          <span>Jasný další krok</span>
+          <span>Jemný přístup</span>
+          <span>Jasný ceník</span>
         </div>
       </div>
-      <div class="hero-card">
-        <span class="card-label">Nejčastěji vybírané</span>
-        <h2>Prognóza na 3 roky</h2>
-        <p>Jemný pohled na vývoj témat, rozhodnutí a období, která mohou ovlivnit váš další směr.</p>
-        <div class="price">1 500 Kč</div>
-        <a class="btn btn-primary full" href="kontakt.html">Chci prognózu</a>
+      <div class="hero-card portrait-card">
+        <img src="karel-ulrych-profil.jpg" alt="Karel Ulrych" class="portrait">
+        <div class="portrait-note">
+          <strong>Osobní vedení</strong>
+          <p>Nejdřív porozumíme otázce. Potom společně vybereme službu, která dává největší smysl.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container section-head">
-      <span class="eyebrow">Služby</span>
-      <h2>Vyberte si konzultaci podle toho, co právě řešíte.</h2>
-      <p>Každou službu vedu s respektem k vaší osobní situaci. Cílem není strašit ani slibovat jistoty, ale pojmenovat souvislosti a nabídnout klidnější pohled.</p>
-    </div>
-    <div class="container cards price-cards">
-      <article class="service-card">
-        <span>Astrologie</span>
-        <h3>Osobní horoskop</h3>
-        <p>Rozbor osobnosti, darů, citlivých míst, vnitřní motivace a životních témat.</p>
-        <strong>1 200 Kč</strong>
-        <a href="kontakt.html">Objednat</a>
-      </article>
-      <article class="service-card">
-        <span>Vztahy</span>
-        <h3>Partnerský horoskop</h3>
-        <p>Porozumění dynamice vztahu, komunikaci, přitažlivosti a opakujícím se vzorcům.</p>
-        <strong>1 200 Kč</strong>
-        <a href="kontakt.html">Objednat</a>
-      </article>
-      <article class="service-card featured">
-        <span>Budoucnost</span>
-        <h3>Prognóza na 3 roky</h3>
-        <p>Přehled hlavních témat a časových období do budoucnosti.</p>
-        <strong>1 500 Kč</strong>
-        <a href="kontakt.html">Objednat</a>
-      </article>
+  <section class="soft-band">
+    <div class="container">
+      <div class="section-head centered">
+        <span class="kicker">Poznáváte se?</span>
+        <h2>Když uvnitř cítíte otázku, ale nevíte, kde začít.</h2>
+        <p>Funnel na webu je postavený tak, aby vás nezahltil. Pomůže vám vybrat mezi horoskopem, výkladem karet a Reiki podle toho, co právě řešíte.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">Řešíte vztah, návrat důvěry nebo rozhodnutí, zda pokračovat dál?</div>
+        <div class="problem-card">Stojíte na životní křižovatce a potřebujete širší pohled?</div>
+        <div class="problem-card">Chcete porozumět sobě, svým cyklům, talentům a vnitřním blokům?</div>
+        <div class="problem-card">Cítíte únavu, tlak, neklid nebo potřebu energetické harmonizace?</div>
+      </div>
     </div>
   </section>
 
-  <section class="section gradient-section">
+  <section id="sluzby">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Služby a ceny</span>
+        <h2>Vyberte si cestu, která odpovídá vaší otázce.</h2>
+        <p>Jasný ceník, srozumitelné služby a jednoduchý krok k objednání.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <article class="price-card featured">
+          <div class="tag">Sebepoznání</div>
+          <h3>Osobní horoskop</h3>
+          <p>Pro hlubší pochopení osobnosti, životních témat, silných stránek a vnitřního nastavení.</p>
+          <div class="price">1 200 Kč</div>
+          <a class="btn primary" href="kontakt.html?sluzba=osobni-horoskop">Chci osobní horoskop</a>
+        </article>
+
+        <article class="price-card">
+          <div class="tag">Vztahy</div>
+          <h3>Partnerský horoskop</h3>
+          <p>Pro porozumění dynamice vztahu, rozdílům, souladu, výzvám a společnému směru.</p>
+          <div class="price">1 200 Kč</div>
+          <a class="btn primary" href="kontakt.html?sluzba=partnersky-horoskop">Chci partnerský horoskop</a>
+        </article>
+
+        <article class="price-card">
+          <div class="tag">Budoucnost</div>
+          <h3>Prognóza na 3 roky</h3>
+          <p>Pro orientaci v dalším období, životních tématech, možnostech a důležitých změnách.</p>
+          <div class="price">1 500 Kč</div>
+          <a class="btn primary" href="kontakt.html?sluzba=prognoza-3-roky">Chci tříletou prognózu</a>
+        </article>
+
+        <article class="price-card">
+          <div class="tag">Orákulum</div>
+          <h3>Mystické Šamanské Orákulum</h3>
+          <p>Symbolický výklad pro hlubší vhled, vnitřní vedení a téma, které si žádá jemné rozkrytí.</p>
+          <div class="price">1 000 Kč</div>
+          <a class="btn secondary" href="kontakt.html?sluzba=samanske-orakulum">Chci výklad orákula</a>
+        </article>
+
+        <article class="price-card">
+          <div class="tag">Zenový pohled</div>
+          <h3>OSHO Zen Tarot</h3>
+          <p>Výklad zaměřený na přítomný okamžik, vnitřní pravdu, klid a pochopení situace bez tlaku.</p>
+          <div class="price">800 Kč</div>
+          <a class="btn secondary" href="kontakt.html?sluzba=osho-zen-tarot">Chci OSHO Zen Tarot</a>
+        </article>
+
+        <article class="price-card">
+          <div class="tag">Čakry</div>
+          <h3>Čakrové karty</h3>
+          <p>Léčení mysli, těla i ducha. Výklad zaměřený na energetická témata, harmonizaci a vnitřní rovnováhu.</p>
+          <div class="price">1 200 Kč</div>
+          <a class="btn secondary" href="kontakt.html?sluzba=cakrove-karty">Chci čakrový výklad</a>
+        </article>
+
+        <article class="price-card reiki-card">
+          <div class="tag">Energie</div>
+          <h3>Léčení Reiki</h3>
+          <p>Jemná energetická podpora pro zklidnění, uvolnění a harmonizaci. Vhodné jako doplněk k osobní práci.</p>
+          <div class="price">500 Kč</div>
+          <a class="btn secondary" href="kontakt.html?sluzba=reiki">Chci Reiki</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="doporučení" class="funnel-section">
     <div class="container split">
       <div>
-        <span class="eyebrow">Výklad karet</span>
-        <h2>Karty jako zrcadlo pro mysl, tělo i ducha.</h2>
-        <p>Výklad není rozsudek. Je to citlivý rozhovor s obrazem situace, který může ukázat skryté souvislosti, vnitřní bloky, možnosti a další krok.</p>
-        <a class="btn btn-primary" href="vyklad-karet.html">Vybrat výklad</a>
+        <span class="kicker">Nevíte, co zvolit?</span>
+        <h2>Vyberte oblast a web vám doporučí vhodnou službu.</h2>
+        <p class="lead">Ne každá žena hned ví, zda potřebuje horoskop, karty nebo Reiki. Tento jednoduchý doporučovací funnel pomůže udělat první krok.</p>
+        <p class="small">Výstup je orientační. Finální doporučení vždy může upravit člověk podle vaší konkrétní situace.</p>
       </div>
-      <div class="mini-list">
-        <div><b>Mystické Šamanské Orákulum</b><span>1 000 Kč</span></div>
-        <div><b>OSHO Zen Tarot</b><span>800 Kč</span></div>
-        <div><b>Čakrové karty</b><span>1 200 Kč</span></div>
-        <div><b>Léčení Reiki</b><span>500 Kč</span></div>
+      <div class="advisor card">
+        <label for="topic">Co právě nejvíc řešíte?</label>
+        <select id="topic">
+          <option value="">Vyberte oblast</option>
+          <option value="ja">Já, sebepoznání, vnitřní nastavení</option>
+          <option value="vztah">Vztah, partnerství, citové téma</option>
+          <option value="budoucnost">Budoucnost, změna, další směr</option>
+          <option value="rozhodnuti">Rozhodnutí, nejistota, otázka</option>
+          <option value="energie">Únava, tlak, energie, harmonizace</option>
+          <option value="duchovni">Léčení mysli, těla i ducha</option>
+        </select>
+        <button class="btn primary full" id="recommendBtn">Doporučit službu</button>
+        <div id="recommendation" class="recommendation"></div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container cta-panel">
-      <span class="eyebrow">První krok</span>
-      <h2>Nejste si jistá, co vybrat?</h2>
-      <p>Napište mi, co právě řešíte. Pomohu vám vybrat vhodnou službu a připravím návrh dalšího kroku.</p>
-      <a class="btn btn-primary" href="kontakt.html">Napsat dotaz</a>
+  <section class="proof-section">
+    <div class="container">
+      <div class="section-head centered">
+        <span class="kicker">Proč tento web prodává jemně</span>
+        <h2>Moderní duchovní web nemá tlačit. Má vést.</h2>
+        <p>Klientka má projít cestou: poznávám svoji otázku → chápu možnosti → vybírám službu → cítím důvěru → objednávám konzultaci.</p>
+      </div>
+      <div class="workflow">
+        <div>Otázka</div>
+        <div>Výběr služby</div>
+        <div>Cena</div>
+        <div>Poptávka</div>
+        <div>Citlivá odpověď</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rezervace" class="cta-final">
+    <div class="container cta-box">
+      <span class="kicker">Další krok</span>
+      <h2>Začněte jednou otázkou. Odpověď se může stát novým směrem.</h2>
+      <p>Vyberte službu, napište pár vět k tématu a já vám připravím citlivou odpověď s dalším postupem.</p>
+      <div class="hero-actions">
+        <a class="btn primary large" href="kontakt.html">Objednat konzultaci</a>
+        <a class="btn secondary large" href="sluzby.html">Zobrazit všechny služby</a>
+      </div>
     </div>
   </section>
 </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <div class="brand footer-brand"><span class="brand-mark">✦</span><span><strong>Karel Ulrych</strong><small>Vnitřní vedení s respektem a klidem</small></span></div>
-        <p>Astrologie, výklad karet, čakrové karty a Reiki jako prostor pro sebereflexi, ztišení a vědomé rozhodování.</p>
-      </div>
-      <div>
-        <h3>Rychlý kontakt</h3>
-        <p><a href="kontakt.html">Objednat konzultaci</a><br><a href="mailto:doplnte@email.cz">doplnte@email.cz</a></p>
-      </div>
-      <div>
-        <h3>Etický rámec</h3>
-        <p>Výklady a konzultace nenahrazují lékařskou, psychoterapeutickou, právní ani finanční péči.</p>
-      </div>
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="logo"><span class="logo-mark"></span><span>Karel Ulrych</span></div>
+      <p class="small">Horoskopy, výklad karet a Reiki jako seberozvojová a duchovní podpora. Nenahrazuje lékařskou, psychoterapeutickou, právní ani finanční péči.</p>
     </div>
-  </footer>
-  <script src="app.js"></script>
+    <div class="small">
+      <strong>Rychlé odkazy</strong><br>
+      <a href="sluzby.html">Služby</a><br>
+      <a href="vyklad-karet.html">Výklad karet</a><br>
+      <a href="reiki.html">Reiki</a><br>
+      <a href="kontakt.html">Kontakt</a>
+    </div>
+  </div>
+</footer>
+<script src="app.js"></script>
 </body>
 </html>
