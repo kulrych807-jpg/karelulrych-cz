@@ -45,24 +45,83 @@
 
   <section class="section">
     <div class="container contact-grid">
-      <form class="form card" id="contact-form" data-webhook-url="">
-        <label>Jméno<input name="jmeno" required placeholder="Vaše jméno"></label>
-        <label>E-mail<input name="email" type="email" required placeholder="vas@email.cz"></label>
-        <label>Telefon<input name="telefon" type="tel" placeholder="+420"></label>
-        <label>Vybraná služba<select name="sluzba" required>
-          <option value="">Vyberte službu</option>
-          <option>Osobní horoskop – 1 200 Kč</option>
-          <option>Partnerský horoskop – 1 200 Kč</option>
-          <option>Prognóza na 3 roky – 1 500 Kč</option>
-          <option>Mystické Šamanské Orákulum – 1 000 Kč</option>
-          <option>OSHO Zen Tarot – 800 Kč</option>
-          <option>Čakrové karty – 1 200 Kč</option>
-          <option>Léčení Reiki – 500 Kč</option>
-          <option>Nejsem si jistá, potřebuji poradit</option>
-        </select></label>
-        <label>Zpráva<textarea name="zprava" rows="6" placeholder="Krátce popište, co právě řešíte. U horoskopu doplňte datum, čas a místo narození."></textarea></label>
-        <button class="btn primary" type="submit">Odeslat poptávku</button>
+      <form class="form card order-form" id="contact-form" data-webhook-url="">
+        <div class="form-head">
+          <span class="pill-soft">Rychlá objednávka</span>
+          <h2>Vyberte službu a pošlete mi podklady</h2>
+          <p>Formulář otevře připravený e-mail s vyplněnou poptávkou. Před odesláním si text můžete upravit.</p>
+        </div>
+
+        <label>Jméno a příjmení
+          <input name="jmeno" required placeholder="Vaše jméno">
+        </label>
+
+        <div class="form-row">
+          <label>E-mail
+            <input name="email" type="email" required placeholder="vas@email.cz">
+          </label>
+          <label>Telefon
+            <input name="telefon" type="tel" placeholder="+420">
+          </label>
+        </div>
+
+        <label>Vybraná služba
+          <select name="sluzba" id="service-select" required>
+            <option value="">Vyberte službu</option>
+            <option>Osobní horoskop – 1 200 Kč</option>
+            <option>Partnerský horoskop – 1 200 Kč</option>
+            <option>Prognóza na 3 roky – 1 500 Kč</option>
+            <option>Mystické Šamanské Orákulum – 1 000 Kč</option>
+            <option>OSHO Zen Tarot – 800 Kč</option>
+            <option>Čakrové karty – 1 200 Kč</option>
+            <option>Léčení Reiki – 500 Kč</option>
+            <option>Nejsem si jistá, potřebuji poradit</option>
+          </select>
+        </label>
+
+        <div class="form-row">
+          <label>Datum narození
+            <input name="datum_narozeni" placeholder="např. 12. 5. 1978">
+          </label>
+          <label>Čas narození
+            <input name="cas_narozeni" placeholder="např. 14:35 / nevím">
+          </label>
+        </div>
+
+        <label>Místo narození
+          <input name="misto_narozeni" placeholder="Město, stát">
+        </label>
+
+        <div class="form-row">
+          <label>Preferovaný kontakt
+            <select name="preferovany_kontakt">
+              <option>E-mail</option>
+              <option>Telefon</option>
+              <option>SMS</option>
+            </select>
+          </label>
+          <label>Ideální termín
+            <input name="termin" placeholder="např. večer, víkend, konkrétní datum">
+          </label>
+        </div>
+
+        <label>Co právě řešíte?
+          <textarea name="zprava" rows="6" placeholder="Krátce popište svoji situaci, otázku nebo téma. U partnerského horoskopu doplňte také údaje druhé osoby."></textarea>
+        </label>
+
+        <label class="checkline">
+          <input name="souhlas" type="checkbox" required>
+          <span>Souhlasím se zpracováním údajů za účelem vyřízení poptávky. Beru na vědomí, že horoskopy, karty a Reiki jsou seberozvojová a duchovní podpora, nikoli zdravotní, psychologická, právní nebo finanční služba.</span>
+        </label>
+
+        <button class="btn primary" type="submit">Připravit e-mailovou poptávku</button>
         <p class="form-status" id="form-status"></p>
+
+        <div class="direct-contact">
+          <p><strong>Nebo napište přímo:</strong></p>
+          <a class="btn ghost" href="mailto:ulrych.k@seznam.cz?subject=Objednávka konzultace">ulrych.k@seznam.cz</a>
+          <a class="btn ghost" href="tel:+420737477832">Zavolat +420 737 477 832</a>
+        </div>
       </form>
 
       <aside class="contact-card card">

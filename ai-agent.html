@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI agent pro poptávky | Karel Ulrych</title>
-  <meta name="description" content="Podklady pro AI agenta, který třídí maily, poptávky a odpovědi klientkám.">
-  <meta property="og:title" content="AI agent pro poptávky | Karel Ulrych">
-  <meta property="og:description" content="Podklady pro AI agenta, který třídí maily, poptávky a odpovědi klientkám.">
+  <title>AI agent pro maily a poptávky | Karel Ulrych</title>
+  <meta name="description" content="AI agent třídí maily Normal, Hot a Priorita, rozpoznává poptávky, připravuje odpovědi a posílá výstupy na ulrych.k@seznam.cz ke schválení.">
+  <meta property="og:title" content="AI agent pro maily a poptávky | Karel Ulrych">
+  <meta property="og:description" content="AI agent třídí maily Normal, Hot a Priorita, rozpoznává poptávky a připravuje odpovědi ke schválení.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="karel-ulrych-profil.jpg">
   <meta property="og:url" content="https://www.karelulrych.cz/ai-agent.html">
@@ -28,46 +28,143 @@
         <a href="sluzby.html">Služby a ceny</a>
         <a href="vyklad-karet.html">Výklad karet</a>
         <a href="reiki.html">Reiki</a>
-        <a href="ai-agent.html">AI agent</a>
+        <a href="kontakt.html">Kontakt</a>
         <a class="nav-cta" href="kontakt.html">Objednat konzultaci</a>
       </nav>
     </div>
   </header>
-  
+
 <main>
-  <section class="page-hero"><div class="container"><span class="eyebrow">AI agent</span><h1>AI asistent pro poptávky a odpovědi klientkám</h1><p class="lead">Podklady pro agenta, který pomáhá třídit maily, rozpoznat službu, vytěžit chybějící údaje a připravit jemnou odpověď ke schválení.</p></div></section>
-  <section class="section"><div class="container split">
-    <div><h2>Bezpečný princip</h2><p>AI připraví návrh, člověk schválí. Agent nemá samostatně odesílat citlivé odpovědi ani slibovat jisté výsledky.</p></div>
-    <div class="steps"><div class="step">Příchozí e-mail nebo formulář.</div><div class="step">Rozpoznání služby a tématu.</div><div class="step">Vytěžení údajů a chybějících informací.</div><div class="step">Návrh odpovědi v citlivém tónu.</div><div class="step">Ruční schválení před odesláním.</div></div>
-  </div></section>
+  <section class="page-hero ai-hero">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">AI agent pro poptávky</span>
+        <h1>Agent, který třídí maily, hlídá priority a připraví odpověď ke schválení.</h1>
+        <p class="lead">Nový systém pro www.karelulrych.cz rozpozná poptávku, určí prioritu Normal / Hot / Priorita, vytěží údaje klientky a pošle přehled na <strong>ulrych.k@seznam.cz</strong>. Odeslání finální odpovědi zůstává vždy na vašem schválení.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#agent-form">Vyzkoušet test agenta</a>
+          <a class="btn ghost" href="kontakt.html">Přejít na objednávku</a>
+        </div>
+      </div>
+      <div class="agent-card">
+        <h2>Režim provozu</h2>
+        <ul class="check-list">
+          <li><strong>Autonomní třídění:</strong> agent vyhodnotí příchozí zprávu.</li>
+          <li><strong>Bezpečný výstup:</strong> návrh odešle vám ke schválení.</li>
+          <li><strong>Žádné citlivé odpovědi bez člověka:</strong> klientce se odpovídá až po potvrzení.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Logika třídění</span>
+      <h2>Normal / Hot / Priorita</h2>
+      <div class="priority-grid">
+        <article class="priority-card normal">
+          <h3>Normal</h3>
+          <p>Běžná poptávka, dotaz na službu, cenu nebo postup. Agent připraví klidnou odpověď a navrhne další krok.</p>
+          <small>Reakce: do 24–48 hodin</small>
+        </article>
+        <article class="priority-card hot">
+          <h3>Hot</h3>
+          <p>Klientka chce konkrétní službu, uvádí termín, posílá údaje nebo je připravena objednat placený výklad.</p>
+          <small>Reakce: ideálně tentýž den</small>
+        </article>
+        <article class="priority-card priority">
+          <h3>Priorita</h3>
+          <p>Urgentní zpráva, změna domluveného termínu, platba, opakovaná klientka nebo citlivější situace vyžadující osobní pozornost.</p>
+          <small>Reakce: co nejdříve</small>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="agent-form">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Testovací formulář</span>
+        <h2>Otestujte agenta na ukázkové zprávě</h2>
+        <p>Vložte text zprávy od klientky. Agent lokálně připraví klasifikaci, doporučenou službu a e-mailový report na <strong>ulrych.k@seznam.cz</strong>. Pro reálné autonomní třídění příchozí pošty je připraven backend scénář ve složce <code>automation</code>.</p>
+      </div>
+      <form class="card ai-mail-form" id="aiMailForm">
+        <label>Jméno klientky
+          <input name="clientName" placeholder="např. Jana Nováková">
+        </label>
+        <label>E-mail klientky
+          <input name="clientEmail" type="email" placeholder="jana@email.cz">
+        </label>
+        <label>Předmět zprávy
+          <input name="subject" placeholder="např. Objednávka partnerského horoskopu">
+        </label>
+        <label>Text zprávy
+          <textarea name="message" rows="8" placeholder="Vložte zprávu klientky..."></textarea>
+        </label>
+        <button class="btn primary" type="submit">Připravit report na e-mail</button>
+        <p class="form-status" id="aiMailStatus" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Výstup agenta</span>
+        <h2>Co agent pošle na váš e-mail</h2>
+        <p>Každá zpráva je převedena do stručného reportu, aby bylo rychle jasné, kdo píše, co chce, jak moc je poptávka důležitá a co má být další krok.</p>
+      </div>
+      <div class="card">
+        <pre class="agent-output">Kategorie: Hot
+Typ: Poptávka na placenou službu
+Doporučená služba: Partnerský horoskop
+Chybějící údaje: datum narození partnera, čas narození
+Návrh odpovědi: připraveno ke schválení
+Odeslat klientce: NE – čeká na schválení Karla Ulrycha</pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <span class="eyebrow">Automatizace</span>
+      <h2>Plně funkční provozní verze</h2>
+      <div class="steps">
+        <div><strong>1</strong><p>Příchozí e-mail / formulář přijde do automatu.</p></div>
+        <div><strong>2</strong><p>AI vyhodnotí kategorii Normal / Hot / Priorita.</p></div>
+        <div><strong>3</strong><p>AI vytvoří návrh odpovědi a seznam chybějících údajů.</p></div>
+        <div><strong>4</strong><p>Report přijde na ulrych.k@seznam.cz.</p></div>
+        <div><strong>5</strong><p>Karel Ulrych výstup schválí, upraví nebo zamítne.</p></div>
+      </div>
+      <p class="note">Součástí balíčku jsou soubory <code>automation/AI_AGENT_PROMPT.md</code>, <code>automation/webhook_schema.json</code> a <code>automation/MAKE_N8N_NAVOD.md</code>. Ty slouží k zapojení do Make, n8n, Zapieru nebo vlastního backendu.</p>
+    </div>
+  </section>
 </main>
 
-  <footer class="footer">
-  <div class="container footer-grid footer-grid-3">
-    <div>
-      <div class="logo"><span class="logo-mark"></span><span>Ing. Karel Ulrych</span></div>
-      <p class="small">Horoskopy, výklad karet a Reiki jako seberozvojová a duchovní podpora. Nenahrazuje lékařskou, psychoterapeutickou, právní ani finanční péči.</p>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>Karel Ulrych</h3>
+        <p>Vnitřní vedení s respektem a klidem.</p>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <p>Ing. Karel Ulrych<br>tel: <a href="tel:+420737477832">+420 737 477 832</a><br>e-mail: <a href="mailto:ulrych.k@seznam.cz">ulrych.k@seznam.cz</a><br>IČO: 05674654<br>číslo účtu: 2003038329/2010</p>
+      </div>
+      <div>
+        <h4>Rychlé odkazy</h4>
+        <p><a href="sluzby.html">Služby</a><br><a href="kontakt.html">Kontakt</a><br><a href="eticky-ramec.html">Etický rámec</a></p>
+      </div>
+      <div>
+        <h4>Důležité</h4>
+        <p>Astrologie, tarot a Reiki jsou duchovní a seberozvojová podpora. Nenahrazují lékařskou, psychologickou, právní ani finanční péči.</p>
+      </div>
     </div>
-    <div class="small">
-      <strong>Kontakt</strong><br>
-      <a href="tel:+420737477832">+420 737 477 832</a><br>
-      <a href="mailto:ulrych.k@seznam.cz">ulrych.k@seznam.cz</a><br>
-      IČO: 05674654<br>
-      Číslo účtu: 2003038329/2010
+    <div class="container footer-bottom">
+      <p>© Ing. Karel Ulrych – všechna práva vyhrazena.</p>
+      <p>Karel Ulrych – vnitřní vedení s respektem a klidem.</p>
     </div>
-    <div class="small">
-      <strong>Rychlé odkazy</strong><br>
-      <a href="sluzby.html">Služby</a><br>
-      <a href="vyklad-karet.html">Výklad karet</a><br>
-      <a href="reiki.html">Reiki</a><br>
-      <a href="kontakt.html">Kontakt</a>
-    </div>
-  </div>
-  <div class="container footer-bottom">
-    <p>© Ing. Karel Ulrych – všechna práva vyhrazena.</p>
-    <p>Karel Ulrych – vnitřní vedení s respektem a klidem.</p>
-  </div>
-</footer>
+  </footer>
   <script src="app.js"></script>
 </body>
 </html>

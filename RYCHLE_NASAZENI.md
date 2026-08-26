@@ -18,3 +18,12 @@ https://www.karelulrych.cz
 
 ## Aktualizace v5
 Doplněna patička: © Ing. Karel Ulrych – všechna práva vyhrazena. Karel Ulrych – vnitřní vedení s respektem a klidem.
+
+
+### Aktualizace v6
+Nahrajte celý obsah ZIPu do GitHub repozitáře a potvrďte Commit changes. Důležité soubory: kontakt.html, index.html, app.js, style.css.
+
+
+## AI agent v7
+
+Po nahrání ZIPu bude na webu stránka `ai-agent.html` s testovacím agentem. Pro skutečné autonomní zpracování příchozí pošty propojte složku `automation` s Make, n8n, Zapierem nebo vlastním backendem.

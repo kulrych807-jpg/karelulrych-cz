@@ -44,3 +44,14 @@ Důležité soubory k nahrání:
 
 ## Aktualizace v5
 Doplněna patička: © Ing. Karel Ulrych – všechna práva vyhrazena. Karel Ulrych – vnitřní vedení s respektem a klidem.
+
+
+## Verze v6 – objednávkový formulář
+
+Doplněn funkční objednávkový formulář na stránce kontakt.html. Formulář připraví e-mailovou poptávku na adresu ulrych.k@seznam.cz, předvyplní službu z funnelu a doplní pole pro datum, čas a místo narození, preferovaný kontakt a téma klientky.
+
+
+## Verze v7 – AI agent pro maily
+
+Doplněna stránka `ai-agent.html`, testovací klasifikace v `app.js` a automatizační podklady ve složce `automation`.
+Agent třídí zprávy na Normal / Hot / Priorita a připravuje výstup na `ulrych.k@seznam.cz` ke schválení.
