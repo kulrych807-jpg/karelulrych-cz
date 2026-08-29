@@ -1,15 +1,20 @@
-# KarelUlrych.cz – v10 právní stránky
+# Karel Ulrych – web v14
 
-Doplněno:
-- obchodni-podminky.html
-- ochrana-osobnich-udaju.html
-- odkazy na Obchodní podmínky a Ochranu osobních údajů v patičce všech stránek
-- souhlas u objednávkového formuláře s odkazy na právní stránky
+Tato verze je očištěný ostrý web zaměřený na:
 
-Důležité:
-Před ostrým spuštěním doplňte v obou právních dokumentech adresu sídla / doručovací adresu.
+- astrologii,
+- výklad karet,
+- Reiki,
+- osobní konzultace,
+- důvěryhodnou prezentaci,
+- funkční objednávkový formulář přes Web3Forms.
 
+Veřejný AI byznys/firemní funnel byl odstraněn z navigace a komunikace. Interní třídění poptávek zůstává pouze jako zákulisní pomocník pro pořadí Normal / Hot / Priorita.
 
-## v11 – doplněná adresa sídla a doručovací adresa
+## Důležité
 
-Doplněno: Ing. Karel Ulrych, Havířská 1989, 470 01 Česká Lípa, Česká republika.
+Aby formulář opravdu posílal e-maily na `ulrych.k@seznam.cz`, je potřeba doplnit Web3Forms Access Key do souboru `kontakt.html` místo:
+
+`DOPLNIT_WEB3FORMS_ACCESS_KEY`
+
+Bez klíče formulář použije nouzový režim přes předvyplněný e-mail.

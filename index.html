@@ -12,16 +12,23 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="nav">
-  <div class="container nav-inner">
-    <a class="logo" href="index.html"><span class="logo-mark"></span><span>Karel Ulrych</span></a>
-    <nav class="nav-links">
-      <a href="#sluzby">Služby</a>
-      <a href="#doporučení">Nevím, co zvolit</a>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Karel Ulrych úvod">
+      <span class="brand-mark">✦</span>
+      <span>
+        <strong>Karel Ulrych</strong>
+        <small>Astrologie • Tarot • Reiki</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Hlavní navigace">
+      <a href="index.html">Úvod</a>
+      <a href="o-mne.html">O mně</a>
+      <a href="sluzby.html">Služby a ceny</a>
       <a href="vyklad-karet.html">Výklad karet</a>
       <a href="reiki.html">Reiki</a>
-      <a href="kontakt.html">Kontakt</a>
-      <a class="btn primary" href="#rezervace">Objednat konzultaci</a>
+      <a href="certifikat.html">Certifikát</a>
+      <a class="nav-cta" href="kontakt.html">Objednat</a>
     </nav>
   </div>
 </header>
@@ -53,12 +60,37 @@
     </div>
   </section>
 
+
+  <section class="section about-section" id="omne">
+    <div class="container about-grid">
+      <div class="about-photo card">
+        <img src="karel-ulrych-profil.jpg" alt="Ing. Karel Ulrych" class="portrait">
+      </div>
+      <div class="about-copy">
+        <span class="kicker">O mně</span>
+        <h2>Ing. Karel Ulrych – vnitřní vedení s respektem a klidem.</h2>
+        <p class="lead">Jmenuji se Karel Ulrych. Pomáhám lidem, především ženám v období změn, vztahových otázek a vnitřního hledání, získat větší nadhled, klid a jasnější směr.</p>
+        <p>Ve své práci propojuji astrologii, výklad karet, práci se symboly a jemnou energetickou podporu Reiki. Nepoužívám strach, tlak ani sliby zázraků. Vedu rozhovor tak, aby klientka lépe porozuměla sobě, svému vztahu, situaci nebo rozhodnutí, které právě zraje.</p>
+        <p>Výklad chápu jako prostor pro sebereflexi a vědomější rozhodování. Mým cílem je citlivě pojmenovat souvislosti, otevřít nové úhly pohledu a podpořit člověka v tom, aby další krok udělal s větším klidem.</p>
+        <div class="trust-row">
+          <span>Citlivý přístup</span>
+          <span>Jasné vysvětlení</span>
+          <span>Respekt k vašemu tempu</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn primary" href="kontakt.html">Domluvit konzultaci</a>
+          <a class="btn secondary" href="o-mne.html">Přečíst více o mně</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="soft-band">
     <div class="container">
       <div class="section-head centered">
         <span class="kicker">Poznáváte se?</span>
         <h2>Když uvnitř cítíte otázku, ale nevíte, kde začít.</h2>
-        <p>Funnel na webu je postavený tak, aby vás nezahltil. Pomůže vám vybrat mezi horoskopem, výkladem karet a Reiki podle toho, co právě řešíte.</p>
+        <p>Stránka je postavená tak, aby vás nezahltila. Pomůže vám v klidu vybrat mezi horoskopem, výkladem karet a Reiki podle toho, co právě řešíte.</p>
       </div>
       <div class="problem-grid">
         <div class="problem-card">Řešíte vztah, návrat důvěry nebo rozhodnutí, zda pokračovat dál?</div>
@@ -141,9 +173,9 @@
     <div class="container split">
       <div>
         <span class="kicker">Nevíte, co zvolit?</span>
-        <h2>Vyberte oblast a web vám doporučí vhodnou službu.</h2>
-        <p class="lead">Ne každá žena hned ví, zda potřebuje horoskop, karty nebo Reiki. Tento jednoduchý doporučovací funnel pomůže udělat první krok.</p>
-        <p class="small">Výstup je orientační. Finální doporučení vždy může upravit člověk podle vaší konkrétní situace.</p>
+        <h2>Vyberte oblast a získejte jemné doporučení vhodné služby.</h2>
+        <p class="lead">Ne každá žena hned ví, zda potřebuje horoskop, karty nebo Reiki. Tento jednoduchý výběr vám pomůže udělat první krok.</p>
+        <p class="small">Výstup je orientační. Finální doporučení vždy upravím osobně podle vaší konkrétní situace.</p>
       </div>
       <div class="advisor card">
         <label for="topic">Co právě nejvíc řešíte?</label>
@@ -165,16 +197,16 @@
   <section class="proof-section">
     <div class="container">
       <div class="section-head centered">
-        <span class="kicker">Proč tento web prodává jemně</span>
-        <h2>Moderní duchovní web nemá tlačit. Má vést.</h2>
-        <p>Klientka má projít cestou: poznávám svoji otázku → chápu možnosti → vybírám službu → cítím důvěru → objednávám konzultaci.</p>
+        <span class="kicker">Proč je cesta vedená jemně</span>
+        <h2>Duchovní služba nemá tlačit. Má vést.</h2>
+        <p>Celý proces je vedený jednoduše: poznám svoji otázku → chápu možnosti → vyberu službu → odešlu poptávku → dostanu citlivou odpověď.</p>
       </div>
       <div class="workflow">
         <div>Otázka</div>
         <div>Výběr služby</div>
-        <div>Cena</div>
+        <div>Jasná cena</div>
         <div>Poptávka</div>
-        <div>Citlivá odpověď</div>
+        <div>Osobní odpověď</div>
       </div>
     </div>
   </section>
@@ -210,12 +242,30 @@
     </div>
   </section>
 
+
+  <section class="section certificate-strip" id="certifikat">
+    <div class="container split-card">
+      <div>
+        <span class="kicker">Odbornost a důvěra</span>
+        <h2>Certifikát k nahlédnutí</h2>
+        <p>Na web jsem doplnil profesionální PDF certifikát jako součást důvěryhodnosti a osobní prezentace.</p>
+        <div class="teaser-actions">
+          <a class="btn primary" href="certifikat.html">Zobrazit certifikát</a>
+          <a class="btn secondary" href="certifikat-karel-ulrych-profesionalni.pdf" target="_blank" rel="noopener">Otevřít PDF</a>
+        </div>
+      </div>
+      <div class="certificate-mini">
+        <img src="certifikat-karel-ulrych-profesionalni-nahled.png" alt="Náhled certifikátu Ing. Karla Ulrycha" loading="lazy">
+      </div>
+    </div>
+  </section>
+
   <section class="section order-teaser" id="objednavka">
     <div class="container split-card">
       <div>
-        <span class="kicker">Rychlá poptávka</span>
-        <h2>Objednávka bez zbytečného psaní</h2>
-        <p>Vyberte službu, doplňte základní údaje a web vám připraví e-mail s poptávkou. Text před odesláním můžete upravit.</p>
+        <span class="kicker">Objednávkový formulář</span>
+        <h2>Objednávka bez zbytečného čekání</h2>
+        <p>Vyberte službu, doplňte základní údaje a asistent pro poptávky ji přehledně připraví k osobnímu vyřízení. Odpověď vždy schvaluji a odesílám osobně.</p>
       </div>
       <div class="teaser-actions">
         <a class="btn primary" href="kontakt.html">Otevřít objednávkový formulář</a>
@@ -244,9 +294,11 @@
     </div>
     <div class="small">
       <strong>Rychlé odkazy</strong><br>
+      <a href="o-mne.html">O mně</a><br>
       <a href="sluzby.html">Služby</a><br>
       <a href="vyklad-karet.html">Výklad karet</a><br>
       <a href="reiki.html">Reiki</a><br>
+      <a href="certifikat.html">Certifikát</a><br>
       <a href="kontakt.html">Kontakt</a><br>
       <a href="obchodni-podminky.html">Obchodní podmínky</a><br>
       <a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a>

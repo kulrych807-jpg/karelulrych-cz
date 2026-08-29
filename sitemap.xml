@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.karelulrych.cz/</loc></url>
+  <url><loc>https://www.karelulrych.cz/o-mne.html</loc></url>
   <url><loc>https://www.karelulrych.cz/sluzby.html</loc></url>
   <url><loc>https://www.karelulrych.cz/vyklad-karet.html</loc></url>
   <url><loc>https://www.karelulrych.cz/reiki.html</loc></url>
+  <url><loc>https://www.karelulrych.cz/certifikat.html</loc></url>
   <url><loc>https://www.karelulrych.cz/kontakt.html</loc></url>
-  <url><loc>https://www.karelulrych.cz/ai-agent.html</loc></url>
-  <url><loc>https://www.karelulrych.cz/eticky-ramec.html</loc></url>
+  <url><loc>https://www.karelulrych.cz/obchodni-podminky.html</loc></url>
+  <url><loc>https://www.karelulrych.cz/ochrana-osobnich-udaju.html</loc></url>
 </urlset>

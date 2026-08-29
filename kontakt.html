@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kontakt | Karel Ulrych</title>
+  <title>Kontakt a objednávka | Karel Ulrych</title>
   <meta name="description" content="Objednejte osobní horoskop, partnerský horoskop, výklad karet nebo Reiki.">
   <meta property="og:title" content="Kontakt | Karel Ulrych">
   <meta property="og:description" content="Objednejte osobní horoskop, partnerský horoskop, výklad karet nebo Reiki.">
@@ -15,24 +15,25 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Karel Ulrych úvod">
-        <span class="brand-mark">✦</span>
-        <span>
-          <strong>Karel Ulrych</strong>
-          <small>Astrologie • Tarot • Reiki</small>
-        </span>
-      </a>
-      <nav class="nav-links" aria-label="Hlavní navigace">
-        <a href="index.html">Úvod</a>
-        <a href="sluzby.html">Služby a ceny</a>
-        <a href="vyklad-karet.html">Výklad karet</a>
-        <a href="reiki.html">Reiki</a>
-        <a href="ai-agent.html">AI agent</a>
-        <a class="nav-cta" href="kontakt.html">Objednat konzultaci</a>
-      </nav>
-    </div>
-  </header>
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Karel Ulrych úvod">
+      <span class="brand-mark">✦</span>
+      <span>
+        <strong>Karel Ulrych</strong>
+        <small>Astrologie • Tarot • Reiki</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Hlavní navigace">
+      <a href="index.html">Úvod</a>
+      <a href="o-mne.html">O mně</a>
+      <a href="sluzby.html">Služby a ceny</a>
+      <a href="vyklad-karet.html">Výklad karet</a>
+      <a href="reiki.html">Reiki</a>
+      <a href="certifikat.html">Certifikát</a>
+      <a class="nav-cta" href="kontakt.html">Objednat</a>
+    </nav>
+  </div>
+</header>
   
 <main>
   <section class="page-hero">
@@ -45,19 +46,18 @@
 
   <section class="section">
     <div class="container contact-grid">
-      <form class="form card order-form" id="contact-form" action="https://formsubmit.co/ulrych.k@seznam.cz" method="POST">
+      <form class="form card order-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
         <div class="form-head">
           <span class="pill-soft">Rychlá objednávka</span>
           <h2>Vyberte službu a pošlete mi podklady</h2>
-          <p>Po odeslání formulář odešle poptávku na e-mail ulrych.k@seznam.cz. AI agent ji zároveň označí jako Normal / Hot / Priorita a uloží do lokální administrace ke schválení.</p>
-        </div>
-        <input type="hidden" name="_subject" id="ai-subject" value="Nová poptávka z webu karelulrych.cz">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://www.karelulrych.cz/kontakt.html?odeslano=1">
-        <input type="hidden" name="AI třídění" id="ai-priority" value="Normal">
-        <input type="hidden" name="AI důvod třídění" id="ai-reason" value="">
-        <input type="hidden" name="AI souhrn" id="ai-summary" value="">
+          <p>Po odeslání se poptávka odešle na e-mail ulrych.k@seznam.cz přes Web3Forms. Interní asistent ji zároveň zařadí jako Normal / Hot / Priorita, aby bylo jasné, jak rychle ji vyřídit. Odpověď vždy schvaluje a posílá Ing. Karel Ulrych osobně.</p>
+        </div>        <input type="hidden" name="access_key" value="DOPLNIT_WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" id="ai-subject" value="Nová poptávka z webu karelulrych.cz">
+        <input type="hidden" name="from_name" value="Objednávkový formulář karelulrych.cz">
+        <input type="hidden" name="redirect" value="https://www.karelulrych.cz/kontakt.html?odeslano=1">
+        <input type="hidden" name="Interní třídění" id="ai-priority" value="Normal">
+        <input type="hidden" name="Důvod třídění" id="ai-reason" value="">
+        <input type="hidden" name="Souhrn poptávky" id="ai-summary" value="">
         <input type="hidden" name="Stav" value="Čeká na schválení Ing. Karlem Ulrychem">
 
         <label>Jméno a příjmení
@@ -122,9 +122,10 @@
           <span>Souhlasím se zpracováním údajů za účelem vyřízení poptávky a beru na vědomí <a href="ochrana-osobnich-udaju.html" target="_blank" rel="noopener">Ochranu osobních údajů</a> a <a href="obchodni-podminky.html" target="_blank" rel="noopener">Obchodní podmínky</a>. Beru na vědomí, že horoskopy, karty a Reiki jsou seberozvojová a duchovní podpora, nikoli zdravotní, psychologická, právní nebo finanční služba.</span>
         </label>
 
-        <button class="btn primary" type="submit">Odeslat poptávku ke zpracování AI agentem</button>
+        <button class="btn primary" type="submit">Odeslat poptávku</button>
         <p class="form-status" id="form-status"></p>
-        <p class="small-note">Po odeslání dorazí poptávka na e-mail a současně se zařadí do administrace: <a href="admin.html">admin.html</a>.</p>
+        <p class="small-note">Po doplnění Web3Forms Access Key dorazí poptávka na e-mail a současně se zařadí do administrace:
+. Bez klíče formulář použije nouzové odeslání přes e-mail.</p>
 
         <div class="direct-contact">
           <p><strong>Nebo napište přímo:</strong></p>
@@ -161,14 +162,19 @@
       <strong>Kontakt</strong><br>
       <a href="tel:+420737477832">+420 737 477 832</a><br>
       <a href="mailto:ulrych.k@seznam.cz">ulrych.k@seznam.cz</a><br>
+      Havířská 1989<br>
+      470 01 Česká Lípa<br>
+      Česká republika<br>
       IČO: 05674654<br>
       Číslo účtu: 2003038329/2010
     </div>
     <div class="small">
       <strong>Rychlé odkazy</strong><br>
+      <a href="o-mne.html">O mně</a><br>
       <a href="sluzby.html">Služby</a><br>
       <a href="vyklad-karet.html">Výklad karet</a><br>
       <a href="reiki.html">Reiki</a><br>
+      <a href="certifikat.html">Certifikát</a><br>
       <a href="kontakt.html">Kontakt</a><br>
       <a href="obchodni-podminky.html">Obchodní podmínky</a><br>
       <a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a>

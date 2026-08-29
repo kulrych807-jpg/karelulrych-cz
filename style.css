@@ -371,3 +371,111 @@ ul{padding-left:20px}
 @media (max-width:900px){
   .priority-grid,.steps{grid-template-columns:1fr}
 }
+
+
+/* Certifikát */
+.certificate-layout{
+  display:grid;
+  grid-template-columns:minmax(280px, 1fr) minmax(280px, .85fr);
+  gap:28px;
+  align-items:start;
+}
+.certificate-card,.content-card,.certificate-mini{
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(255,255,255,.68);
+  border-radius:28px;
+  box-shadow:0 24px 70px rgba(18,8,23,.14);
+  padding:18px;
+  backdrop-filter:blur(10px);
+}
+.certificate-card img,.certificate-mini img{
+  width:100%;
+  display:block;
+  border-radius:18px;
+}
+.certificate-mini{
+  max-width:320px;
+  margin-left:auto;
+}
+.check-list{
+  margin:18px 0 24px;
+  padding-left:20px;
+}
+.check-list li{
+  margin:10px 0;
+}
+@media (max-width: 820px){
+  .certificate-layout{
+    grid-template-columns:1fr;
+  }
+  .certificate-mini{
+    max-width:100%;
+    margin-left:0;
+  }
+}
+
+
+/* v13 – sekce O mně + stav formuláře */
+.about-section{
+  background:linear-gradient(180deg, rgba(255,255,255,.58), rgba(255,247,235,.86));
+}
+.about-grid{
+  display:grid;
+  grid-template-columns:.78fr 1.22fr;
+  gap:34px;
+  align-items:center;
+}
+.about-photo{
+  padding:18px;
+  background:rgba(255,255,255,.72);
+  overflow:hidden;
+}
+.about-photo img{
+  width:100%;
+  display:block;
+  border-radius:22px;
+  object-fit:cover;
+  max-height:520px;
+}
+.about-copy{
+  background:rgba(255,255,255,.70);
+  border:1px solid rgba(36,20,44,.08);
+  border-radius:var(--radius);
+  padding:34px;
+  box-shadow:0 18px 50px rgba(36,20,44,.10);
+}
+.form-status{
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:18px;
+  background:rgba(141,92,246,.10);
+  color:#3a2148;
+  font-weight:650;
+}
+@media (max-width: 820px){
+  .about-grid{grid-template-columns:1fr}
+  .about-copy{padding:24px}
+}
+
+
+/* v14 – očištěný ostrý web */
+.content-narrow {
+  max-width: 920px;
+}
+.content-narrow h2 {
+  margin-top: 34px;
+}
+.cards.three {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 28px 0;
+}
+.form-status {
+  min-height: 1.5em;
+}
+@media (max-width: 860px) {
+  .cards.three {
+    grid-template-columns: 1fr;
+  }
+}
