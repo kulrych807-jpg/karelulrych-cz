@@ -149,13 +149,18 @@
     const status = document.getElementById("form-status");
     const params = new URLSearchParams(window.location.search);
     if (params.get("odeslano") === "1" && status) {
-      status.textContent = "Děkuji, poptávka byla odeslána na e-mail a zařazena ke zpracování.";
+      status.textContent = "Děkuji, poptávka byla odeslána. Pokud ji nevidíte v e-mailu, zkontrolujte ve Web3Forms část Submissions a spam.";
     }
 
-    form.addEventListener("submit", async function (event) {
-      event.preventDefault();
-
+    /*
+     * v16: spolehlivější odeslání
+     * Dříve formulář posílal data přes JavaScript fetch().
+     * Některé prohlížeče / rozšíření / nastavení Web3Forms mohou fetch blokovat nebo skrýt chybu.
+     * Nově JavaScript pouze doplní AI třídění a nechá formulář odeslat nativně přes HTML POST.
+     */
+    form.addEventListener("submit", function (event) {
       if (!form.checkValidity()) {
+        event.preventDefault();
         form.reportValidity();
         return;
       }
@@ -167,11 +172,13 @@
       const r = document.getElementById("ai-reason");
       const s = document.getElementById("ai-summary");
       const subject = document.getElementById("ai-subject");
+      const wfName = document.getElementById("wf-name");
 
       if (p) p.value = ai.label;
       if (r) r.value = ai.reason;
       if (s) s.value = ai.summary;
       if (subject) subject.value = "[" + ai.label + "] Nová objednávka – " + (data.sluzba || "služba");
+      if (wfName) wfName.value = data.jmeno || "Objednávka z webu";
 
       saveToAdmin(data, ai);
 
@@ -179,44 +186,21 @@
       const isConfigured = accessKey && !accessKey.includes("DOPLNIT");
 
       if (!isConfigured) {
+        event.preventDefault();
         if (status) {
-          status.innerHTML = "Interní asistent poptávku zařadil jako <strong>" + ai.label + "</strong> a uložil ji do administrace. Pro skutečné odesílání e-mailů doplň Web3Forms Access Key. Teď otevřu nouzové odeslání přes e-mail.";
+          status.innerHTML = "Interní asistent poptávku zařadil jako <strong>" + ai.label + "</strong>. Chybí Web3Forms klíč, otevírám záložní e-mail.";
         }
         setTimeout(function () {
           window.location.href = makeFallbackMailto(data, ai);
-        }, 700);
+        }, 500);
         return;
       }
 
       if (status) {
-        status.innerHTML = "Interní asistent zařadil poptávku jako <strong>" + ai.label + "</strong>. Odesílám ji na ulrych.k@seznam.cz…";
+        status.innerHTML = "Interní asistent zařadil poptávku jako <strong>" + ai.label + "</strong>. Odesílám přes Web3Forms…";
       }
 
-      try {
-        const response = await fetch(form.action, {
-          method: "POST",
-          body: buildWeb3FormsPayload(form, data, ai),
-          headers: { "Accept": "application/json" }
-        });
-
-        const result = await response.json().catch(function () { return {}; });
-
-        if (!response.ok || result.success === false) {
-          throw new Error(result.message || "Odeslání se nezdařilo.");
-        }
-
-        if (status) {
-          status.innerHTML = "Děkuji. Poptávka byla odeslána na e-mail a zařazena jako <strong>" + ai.label + "</strong>. Výstup čeká na schválení.";
-        }
-        form.reset();
-      } catch (error) {
-        if (status) {
-          status.innerHTML = "Odeslání přes formulář se nepodařilo. Poptávka je uložená v administraci a otevírám záložní e-mail.";
-        }
-        setTimeout(function () {
-          window.location.href = makeFallbackMailto(data, ai);
-        }, 800);
-      }
+      // Bez preventDefault: prohlížeč odešle formulář nativně na https://api.web3forms.com/submit
     });
   }
 

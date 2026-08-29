@@ -52,6 +52,8 @@
           <h2>Vyberte službu a pošlete mi podklady</h2>
           <p>Po odeslání se poptávka odešle na e-mail ulrych.k@seznam.cz přes Web3Forms. Interní asistent ji zároveň zařadí jako Normal / Hot / Priorita, aby bylo jasné, jak rychle ji vyřídit. Odpověď vždy schvaluje a posílá Ing. Karel Ulrych osobně.</p>
         </div>        <input type="hidden" name="access_key" value="78d2004a-5888-40d5-a11a-5b502cf38e73">
+        <input type="hidden" name="name" id="wf-name" value="">
+        <input type="checkbox" name="botcheck" class="hidden-botcheck" tabindex="-1" autocomplete="off">
         <input type="hidden" name="subject" id="ai-subject" value="Nová poptávka z webu karelulrych.cz">
         <input type="hidden" name="from_name" value="Objednávkový formulář karelulrych.cz">
         <input type="hidden" name="redirect" value="https://www.karelulrych.cz/kontakt.html?odeslano=1">
@@ -124,8 +126,7 @@
 
         <button class="btn primary" type="submit">Odeslat poptávku</button>
         <p class="form-status" id="form-status"></p>
-        <p class="small-note">Po doplnění Web3Forms Access Key dorazí poptávka na e-mail a současně se zařadí do administrace:
-. Bez klíče formulář použije nouzové odeslání přes e-mail.</p>
+        <p class="small-note">Po odeslání se objednávka odešle přes Web3Forms a interní asistent ji označí jako Normal / Hot / Priorita. Pokud e-mail nedorazí, zkontrolujte ve Web3Forms část Submissions a nastavení Linked Emails.</p>
 
         <div class="direct-contact">
           <p><strong>Nebo napište přímo:</strong></p>
