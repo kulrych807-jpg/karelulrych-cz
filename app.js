@@ -1,5 +1,5 @@
 /**
- * Karel Ulrych – AI agent pro objednávky
+ * Karel Ulrych – interní asistent pro objednávky
  * - vypočítá prioritu Normal / Hot / Priorita
  * - doplní ji do formuláře odesílaného na ulrych.k@seznam.cz
  * - uloží záznam do lokální administrace admin.html ke schválení
@@ -108,6 +108,40 @@
     localStorage.setItem(ADMIN_KEY, JSON.stringify(orders.slice(0, 200)));
   }
 
+  function makeFallbackMailto(data, ai) {
+    const subject = encodeURIComponent("[" + ai.label + "] Nová objednávka – " + (data.sluzba || "služba"));
+    const body = encodeURIComponent(
+      "Interní třídění: " + ai.label + "\n" +
+      "Důvod třídění: " + ai.reason + "\n" +
+      "Souhrn poptávky: " + ai.summary + "\n\n" +
+      "Jméno: " + (data.jmeno || "") + "\n" +
+      "E-mail: " + (data.email || "") + "\n" +
+      "Telefon: " + (data.telefon || "") + "\n" +
+      "Služba: " + (data.sluzba || "") + "\n" +
+      "Datum narození: " + (data.datum_narozeni || "") + "\n" +
+      "Čas narození: " + (data.cas_narozeni || "") + "\n" +
+      "Místo narození: " + (data.misto_narozeni || "") + "\n" +
+      "Preferovaný kontakt: " + (data.preferovany_kontakt || "") + "\n" +
+      "Ideální termín: " + (data.termin || "") + "\n\n" +
+      "Zpráva:\n" + (data.zprava || "") + "\n\n" +
+      "Stav: Čeká na schválení Ing. Karlem Ulrychem"
+    );
+    return "mailto:ulrych.k@seznam.cz?subject=" + subject + "&body=" + body;
+  }
+
+  function buildWeb3FormsPayload(form, data, ai) {
+    const payload = new FormData(form);
+    payload.set("subject", "[" + ai.label + "] Nová objednávka z webu – " + (data.sluzba || "služba"));
+    payload.set("from_name", data.jmeno || "Objednávkový formulář karelulrych.cz");
+    payload.set("Interní třídění", ai.label);
+    payload.set("Skóre třídění", ai.score);
+    payload.set("Důvod třídění třídění", ai.reason);
+    payload.set("Souhrn poptávky", ai.summary);
+    payload.set("Stav", "Čeká na schválení Ing. Karlem Ulrychem");
+    payload.set("Cílový e-mail", "ulrych.k@seznam.cz");
+    return payload;
+  }
+
   function handleContactForm() {
     const form = document.getElementById("contact-form");
     if (!form) return;
@@ -118,8 +152,13 @@
       status.textContent = "Děkuji, poptávka byla odeslána na e-mail a zařazena ke zpracování.";
     }
 
-    form.addEventListener("submit", function (event) {
-      if (!form.checkValidity()) return;
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
       const data = getFormData(form);
       const ai = classifyOrder(data);
@@ -136,8 +175,47 @@
 
       saveToAdmin(data, ai);
 
+      const accessKey = (form.querySelector('[name="access_key"]') || {}).value || "";
+      const isConfigured = accessKey && !accessKey.includes("DOPLNIT");
+
+      if (!isConfigured) {
+        if (status) {
+          status.innerHTML = "Interní asistent poptávku zařadil jako <strong>" + ai.label + "</strong> a uložil ji do administrace. Pro skutečné odesílání e-mailů doplň Web3Forms Access Key. Teď otevřu nouzové odeslání přes e-mail.";
+        }
+        setTimeout(function () {
+          window.location.href = makeFallbackMailto(data, ai);
+        }, 700);
+        return;
+      }
+
       if (status) {
-        status.textContent = "AI agent zařadil poptávku jako " + ai.label + ". Odesílám na ulrych.k@seznam.cz…";
+        status.innerHTML = "Interní asistent zařadil poptávku jako <strong>" + ai.label + "</strong>. Odesílám ji na ulrych.k@seznam.cz…";
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: buildWeb3FormsPayload(form, data, ai),
+          headers: { "Accept": "application/json" }
+        });
+
+        const result = await response.json().catch(function () { return {}; });
+
+        if (!response.ok || result.success === false) {
+          throw new Error(result.message || "Odeslání se nezdařilo.");
+        }
+
+        if (status) {
+          status.innerHTML = "Děkuji. Poptávka byla odeslána na e-mail a zařazena jako <strong>" + ai.label + "</strong>. Výstup čeká na schválení.";
+        }
+        form.reset();
+      } catch (error) {
+        if (status) {
+          status.innerHTML = "Odeslání přes formulář se nepodařilo. Poptávka je uložená v administraci a otevírám záložní e-mail.";
+        }
+        setTimeout(function () {
+          window.location.href = makeFallbackMailto(data, ai);
+        }, 800);
       }
     });
   }
@@ -201,7 +279,7 @@
               <button class="btn ghost" data-delete="${idx}">Smazat</button>
             </div>
           </div>
-          <p><strong>AI důvod:</strong> ${escapeHtml(o.ai.reason)}</p>
+          <p><strong>Důvod třídění:</strong> ${escapeHtml(o.ai.reason)}</p>
           <p><strong>Souhrn:</strong> ${escapeHtml(o.ai.summary)}</p>
           <p><strong>Téma:</strong><br>${escapeHtml(d.zprava || "")}</p>
         </article>

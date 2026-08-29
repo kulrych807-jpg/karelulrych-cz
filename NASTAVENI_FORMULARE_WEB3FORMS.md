@@ -1,16 +1,22 @@
-# Nastavení Web3Forms pro ostrý provoz
+# Nastavení Web3Forms – hotovo
 
-1. Otevřete Web3Forms a vytvořte Access Key pro e-mail `ulrych.k@seznam.cz`.
-2. Otevřete soubor `kontakt.html`.
-3. Najděte řádek:
+Access Key je vložený do souboru `kontakt.html`.
 
-```html
-<input type="hidden" name="access_key" value="DOPLNIT_WEB3FORMS_ACCESS_KEY">
-```
+## Co ještě zkontrolovat ve Web3Forms
 
-4. Nahraďte `DOPLNIT_WEB3FORMS_ACCESS_KEY` skutečným klíčem.
-5. Nahrajte upravený `kontakt.html` na GitHub.
-6. Počkejte na nasazení ve Vercelu.
-7. Otestujte formulář testovací poptávkou.
+1. Povolená doména:
+   - `karelulrych.cz`
+   - `www.karelulrych.cz`
 
-Interní asistent před odesláním zařadí poptávku jako Normal / Hot / Priorita a přidá souhrn do e-mailu.
+2. Notifikace:
+   - příjemce e-mailu: `ulrych.k@seznam.cz`
+
+3. Spam ochrana:
+   - zapnout dostupnou ochranu proti spamu / botům
+
+4. Test:
+   - po nasazení vyplnit testovací formulář na `/kontakt.html`
+   - ověřit, že e-mail dorazí
+   - ověřit, že ve Web3Forms přibyla nová zpráva
+
+Interní asistent na straně webu připraví klasifikaci Normal / Hot / Priorita a souhrn poptávky do odesílaného e-mailu.
