@@ -1,27 +1,30 @@
-# Karel Ulrych – web v14
+# Karel Ulrych – web v17
 
-Tato verze je očištěný ostrý web zaměřený na:
+Verze v17 přepíná objednávkový formulář z Web3Forms na Make webhook.
 
-- astrologii,
-- výklad karet,
-- Reiki,
-- osobní konzultace,
-- důvěryhodnou prezentaci,
-- funkční objednávkový formulář přes Web3Forms.
+## Hlavní tok
 
-Veřejný AI byznys/firemní funnel byl odstraněn z navigace a komunikace. Interní třídění poptávek zůstává pouze jako zákulisní pomocník pro pořadí Normal / Hot / Priorita.
+Objednávkový formulář na webu  
+→ Make webhook  
+→ AI / pravidlové třídění Normal / Hot / Priorita  
+→ Google Sheets evidence  
+→ e-mail na `ulrych.k@seznam.cz`  
+→ odpověď klientce pouze ke schválení Karlem
 
-## Důležité
+## Použitý Make webhook
 
-Aby formulář opravdu posílal e-maily na `ulrych.k@seznam.cz`, je potřeba doplnit Web3Forms Access Key do souboru `kontakt.html` místo:
+`https://hook.eu1.make.com/5634bn2d9m4y7d0267lbkrifjmm2k1ae`
 
-`78d2004a-5888-40d5-a11a-5b502cf38e73`
+## Co nahrát na GitHub
 
-Bez klíče formulář použije nouzový režim přes předvyplněný e-mail.
+Nahrajte celý obsah složky na GitHub do hlavní větve `main`.
 
+Nejdůležitější soubory:
 
-## Verze v15 – Web3Forms napojeno
+- `kontakt.html`
+- `app.js`
+- `style.css`
+- `admin.html`
+- `MAKE_SCENAR_NAVOD.md`
 
-Objednávkový formulář v kontakt.html je napojený na Web3Forms. Access Key je vložen přímo v HTML formuláři, jak Web3Forms vyžaduje pro statický web.
-
-Po nasazení otestujte formulář na /kontakt.html a ve Web3Forms zkontrolujte příjem zprávy.
+Po nahrání klikněte na **Commit changes** a počkejte na deploy ve Vercelu.

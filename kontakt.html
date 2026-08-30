@@ -46,17 +46,19 @@
 
   <section class="section">
     <div class="container contact-grid">
-      <form class="form card order-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+      <iframe name="make-submit-frame" id="make-submit-frame" style="display:none"></iframe>
+      <form class="form card order-form" id="contact-form" action="https://hook.eu1.make.com/5634bn2d9m4y7d0267lbkrifjmm2k1ae" method="POST" target="make-submit-frame">
         <div class="form-head">
           <span class="pill-soft">Rychlá objednávka</span>
           <h2>Vyberte službu a pošlete mi podklady</h2>
-          <p>Po odeslání se poptávka odešle na e-mail ulrych.k@seznam.cz přes Web3Forms. Interní asistent ji zároveň zařadí jako Normal / Hot / Priorita, aby bylo jasné, jak rychle ji vyřídit. Odpověď vždy schvaluje a posílá Ing. Karel Ulrych osobně.</p>
-        </div>        <input type="hidden" name="access_key" value="78d2004a-5888-40d5-a11a-5b502cf38e73">
+          <p>Po odeslání se poptávka odešle do automatizace Make. Tam se zapíše do evidence, zařadí jako Normal / Hot / Priorita a odešle na e-mail ulrych.k@seznam.cz. Odpověď klientce vždy schvaluje a posílá Ing. Karel Ulrych osobně.</p>
+        </div>
         <input type="hidden" name="name" id="wf-name" value="">
-        <input type="checkbox" name="botcheck" class="hidden-botcheck" tabindex="-1" autocomplete="off">
+        <input type="text" name="website" class="hidden-botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input type="hidden" name="subject" id="ai-subject" value="Nová poptávka z webu karelulrych.cz">
-        <input type="hidden" name="from_name" value="Objednávkový formulář karelulrych.cz">
-        <input type="hidden" name="redirect" value="https://www.karelulrych.cz/kontakt.html?odeslano=1">
+        <input type="hidden" name="zdroj" value="www.karelulrych.cz/kontakt.html">
+        <input type="hidden" name="odeslano_z_webu" id="sent-at" value="">
+        <input type="hidden" name="make_webhook_verze" value="v17">
         <input type="hidden" name="Interní třídění" id="ai-priority" value="Normal">
         <input type="hidden" name="Důvod třídění" id="ai-reason" value="">
         <input type="hidden" name="Souhrn poptávky" id="ai-summary" value="">
@@ -126,7 +128,7 @@
 
         <button class="btn primary" type="submit">Odeslat poptávku</button>
         <p class="form-status" id="form-status"></p>
-        <p class="small-note">Po odeslání se objednávka odešle přes Web3Forms a interní asistent ji označí jako Normal / Hot / Priorita. Pokud e-mail nedorazí, zkontrolujte ve Web3Forms část Submissions a nastavení Linked Emails.</p>
+        <p class="small-note">Po odeslání se objednávka předá do Make. V Make bude vidět v historii scénáře, zapíše se do Google Sheets a e-mail přijde na ulrych.k@seznam.cz.</p>
 
         <div class="direct-contact">
           <p><strong>Nebo napište přímo:</strong></p>
