@@ -1,107 +1,300 @@
+/**
+ * Karel Ulrych – interní asistent pro objednávky
+ * - vypočítá prioritu Normal / Hot / Priorita
+ * - doplní ji do formuláře odesílaného na ulrych.k@seznam.cz
+ * - uloží záznam do lokální administrace admin.html ke schválení
+ *
+ * Poznámka: statický web neumí bezpečně držet API klíče ani číst e-mailovou schránku.
+ * Tento agent zpracovává webové objednávky na straně prohlížeče.
+ */
+
 (function () {
-  function textValue(form, name) {
-    const el = form.querySelector('[name="' + name + '"]');
-    return el ? (el.value || '').trim() : '';
+  const ADMIN_KEY = "ku_orders";
+
+  function normalize(text) {
+    return (text || "").toString().toLowerCase();
   }
 
-  function classifyLead(form) {
-    const service = textValue(form, 'sluzba').toLowerCase();
-    const message = textValue(form, 'zprava').toLowerCase();
-    const phone = textValue(form, 'telefon');
-    const term = textValue(form, 'termin').toLowerCase();
-    const birthDate = textValue(form, 'datum_narozeni');
-    const birthTime = textValue(form, 'cas_narozeni');
-    const birthPlace = textValue(form, 'misto_narozeni');
+  function classifyOrder(data) {
+    const message = normalize(data.zprava);
+    const service = normalize(data.sluzba);
+    const term = normalize(data.termin);
+    const contact = normalize(data.preferovany_kontakt);
+    const phone = normalize(data.telefon);
 
-    const urgentWords = ['urgent', 'rychle', 'co nejdřív', 'dnes', 'zítra', 'hned', 'naléhav', 'krize', 'rozchod', 'nevěra', 'bolest', 'strach'];
-    const orderWords = ['objednat', 'objednávám', 'chci', 'prosím o termín', 'termín', 'zaplatím', 'platba'];
+    const priorityWords = [
+      "urgent", "hned", "okamžitě", "dnes", "zítra", "krize",
+      "rozchod", "rozvod", "nevěra", "panika", "strach", "kolaps",
+      "nespím", "nemůžu spát", "zoufal", "priorita"
+    ];
+
+    const hotWords = [
+      "vztah", "partner", "partnerka", "manžel", "manželka", "budoucnost",
+      "rozhodnutí", "práce", "změna", "termín", "reiki", "karty",
+      "horoskop", "prognóza", "partnerský"
+    ];
 
     let score = 0;
-    let reasons = [];
+    const reasons = [];
 
-    if (service && !service.includes('nejsem si jist')) { score += 2; reasons.push('vybraná konkrétní služba'); }
-    if (phone) { score += 1; reasons.push('uveden telefon'); }
-    if (term) { score += 1; reasons.push('uveden preferovaný termín'); }
-    if (birthDate || birthTime || birthPlace) { score += 1; reasons.push('doplněné podklady k výkladu'); }
-    if (orderWords.some(w => message.includes(w) || term.includes(w))) { score += 2; reasons.push('jasný objednávkový záměr'); }
-    if (urgentWords.some(w => message.includes(w) || term.includes(w))) { score += 3; reasons.push('naléhavé nebo citlivé téma'); }
+    if (phone.trim().length > 5) {
+      score += 2;
+      reasons.push("klientka uvedla telefon");
+    }
+    if (contact.includes("telefon") || contact.includes("sms")) {
+      score += 2;
+      reasons.push("preferuje rychlý kontakt");
+    }
+    if (term.includes("dnes") || term.includes("zítra") || term.includes("co nejdřív")) {
+      score += 4;
+      reasons.push("žádá rychlý termín");
+    }
+    if (service.includes("prognóza") || service.includes("partnerský") || service.includes("nejsem si jist")) {
+      score += 2;
+      reasons.push("služba vyžaduje osobnější vedení");
+    }
 
-    let label = 'Normal';
-    if (score >= 4) label = 'Hot';
-    if (score >= 6) label = 'Priorita';
+    priorityWords.forEach((word) => {
+      if (message.includes(word) || term.includes(word)) {
+        score += 4;
+        reasons.push("obsahuje naléhavé téma: " + word);
+      }
+    });
+
+    hotWords.forEach((word) => {
+      if (message.includes(word) || service.includes(word)) {
+        score += 1;
+      }
+    });
+
+    let label = "Normal";
+    if (score >= 8) label = "Priorita";
+    else if (score >= 4) label = "Hot";
+
+    if (reasons.length === 0) {
+      reasons.push("běžná poptávka bez výrazné naléhavosti");
+    }
 
     const summary = [
-      'Služba: ' + (textValue(form, 'sluzba') || 'neuvedeno'),
-      'Kontakt: ' + (textValue(form, 'email') || 'bez e-mailu') + (phone ? ', tel. ' + phone : ''),
-      'Téma: ' + (textValue(form, 'zprava') || 'bez zprávy'),
-      'Termín: ' + (textValue(form, 'termin') || 'neuveden')
-    ].join('\n');
+      "Služba: " + (data.sluzba || "neuvedeno"),
+      "Klientka/klient: " + (data.jmeno || "neuvedeno"),
+      "Kontakt: " + (data.email || "neuvedeno") + (data.telefon ? ", " + data.telefon : ""),
+      "Termín: " + (data.termin || "neuvedeno"),
+      "Téma: " + ((data.zprava || "").trim().slice(0, 260) || "neuvedeno")
+    ].join(" | ");
 
     return {
-      label: label,
-      reason: reasons.length ? reasons.join(', ') : 'běžná nebo neúplná poptávka',
-      summary: summary
+      label,
+      score,
+      reason: reasons.slice(0, 4).join("; "),
+      summary
     };
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('contact-form');
-    const status = document.getElementById('form-status');
+  function getFormData(form) {
+    const fd = new FormData(form);
+    return Object.fromEntries(fd.entries());
+  }
+
+  function saveToAdmin(data, ai) {
+    const orders = JSON.parse(localStorage.getItem(ADMIN_KEY) || "[]");
+    orders.unshift({
+      id: "KU-" + new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14),
+      createdAt: new Date().toLocaleString("cs-CZ"),
+      status: "Čeká na schválení",
+      ai,
+      data
+    });
+    localStorage.setItem(ADMIN_KEY, JSON.stringify(orders.slice(0, 200)));
+  }
+
+  function makeFallbackMailto(data, ai) {
+    const subject = encodeURIComponent("[" + ai.label + "] Nová objednávka – " + (data.sluzba || "služba"));
+    const body = encodeURIComponent(
+      "Interní třídění: " + ai.label + "\n" +
+      "Důvod třídění: " + ai.reason + "\n" +
+      "Souhrn poptávky: " + ai.summary + "\n\n" +
+      "Jméno: " + (data.jmeno || "") + "\n" +
+      "E-mail: " + (data.email || "") + "\n" +
+      "Telefon: " + (data.telefon || "") + "\n" +
+      "Služba: " + (data.sluzba || "") + "\n" +
+      "Datum narození: " + (data.datum_narozeni || "") + "\n" +
+      "Čas narození: " + (data.cas_narozeni || "") + "\n" +
+      "Místo narození: " + (data.misto_narozeni || "") + "\n" +
+      "Preferovaný kontakt: " + (data.preferovany_kontakt || "") + "\n" +
+      "Ideální termín: " + (data.termin || "") + "\n\n" +
+      "Zpráva:\n" + (data.zprava || "") + "\n\n" +
+      "Stav: Čeká na schválení Ing. Karlem Ulrychem"
+    );
+    return "mailto:ulrych.k@seznam.cz?subject=" + subject + "&body=" + body;
+  }
+
+  function buildWeb3FormsPayload(form, data, ai) {
+    const payload = new FormData(form);
+    payload.set("subject", "[" + ai.label + "] Nová objednávka z webu – " + (data.sluzba || "služba"));
+    payload.set("from_name", data.jmeno || "Objednávkový formulář karelulrych.cz");
+    payload.set("Interní třídění", ai.label);
+    payload.set("Skóre třídění", ai.score);
+    payload.set("Důvod třídění třídění", ai.reason);
+    payload.set("Souhrn poptávky", ai.summary);
+    payload.set("Stav", "Čeká na schválení Ing. Karlem Ulrychem");
+    payload.set("Cílový e-mail", "ulrych.k@seznam.cz");
+    return payload;
+  }
+
+  function handleContactForm() {
+    const form = document.getElementById("contact-form");
     if (!form) return;
 
-    const iframe = document.getElementById('make-submit-frame');
+    const status = document.getElementById("form-status");
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("odeslano") === "1" && status) {
+      status.textContent = "Děkuji, poptávka byla odeslána. Pokud ji nevidíte v e-mailu, zkontrolujte ve Web3Forms část Submissions a spam.";
+    }
 
-    form.addEventListener('submit', function () {
-      const website = textValue(form, 'website');
-      if (website) {
-        if (status) status.textContent = 'Odeslání bylo zastaveno antispamovou ochranou.';
-        return false;
+    /*
+     * v16: spolehlivější odeslání
+     * Dříve formulář posílal data přes JavaScript fetch().
+     * Některé prohlížeče / rozšíření / nastavení Web3Forms mohou fetch blokovat nebo skrýt chybu.
+     * Nově JavaScript pouze doplní AI třídění a nechá formulář odeslat nativně přes HTML POST.
+     */
+    form.addEventListener("submit", function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        form.reportValidity();
+        return;
       }
 
-      const firstName = textValue(form, 'jmeno') || textValue(form, 'email') || 'Objednávka z webu';
-      const wfName = document.getElementById('wf-name');
-      const priority = document.getElementById('ai-priority');
-      const reason = document.getElementById('ai-reason');
-      const summary = document.getElementById('ai-summary');
-      const subject = document.getElementById('ai-subject');
-      const sentAt = document.getElementById('sent-at');
-      const ai = classifyLead(form);
+      const data = getFormData(form);
+      const ai = classifyOrder(data);
 
-      if (wfName) wfName.value = firstName;
-      if (priority) priority.value = ai.label;
-      if (reason) reason.value = ai.reason;
-      if (summary) summary.value = ai.summary;
-      if (subject) subject.value = 'Nová poptávka z webu – ' + ai.label + ' – ' + firstName;
-      if (sentAt) sentAt.value = new Date().toISOString();
+      const p = document.getElementById("ai-priority");
+      const r = document.getElementById("ai-reason");
+      const s = document.getElementById("ai-summary");
+      const subject = document.getElementById("ai-subject");
+      const wfName = document.getElementById("wf-name");
 
-      try {
-        const stored = JSON.parse(localStorage.getItem('ku_objednavky') || '[]');
-        stored.unshift({
-          datum: new Date().toLocaleString('cs-CZ'),
-          jmeno: textValue(form, 'jmeno'),
-          email: textValue(form, 'email'),
-          telefon: textValue(form, 'telefon'),
-          sluzba: textValue(form, 'sluzba'),
-          zprava: textValue(form, 'zprava'),
-          priorita: ai.label,
-          duvod: ai.reason,
-          stav: 'Odesláno do Make'
-        });
-        localStorage.setItem('ku_objednavky', JSON.stringify(stored.slice(0, 100)));
-      } catch (e) {}
+      if (p) p.value = ai.label;
+      if (r) r.value = ai.reason;
+      if (s) s.value = ai.summary;
+      if (subject) subject.value = "[" + ai.label + "] Nová objednávka – " + (data.sluzba || "služba");
+      if (wfName) wfName.value = data.jmeno || "Objednávka z webu";
+
+      saveToAdmin(data, ai);
+
+      const accessKey = (form.querySelector('[name="access_key"]') || {}).value || "";
+      const isConfigured = accessKey && !accessKey.includes("DOPLNIT");
+
+      if (!isConfigured) {
+        event.preventDefault();
+        if (status) {
+          status.innerHTML = "Interní asistent poptávku zařadil jako <strong>" + ai.label + "</strong>. Chybí Web3Forms klíč, otevírám záložní e-mail.";
+        }
+        setTimeout(function () {
+          window.location.href = makeFallbackMailto(data, ai);
+        }, 500);
+        return;
+      }
 
       if (status) {
-        status.textContent = 'Odesílám poptávku do Make. Po odeslání zůstane odpověď klientce na schválení Karlem.';
+        status.innerHTML = "Interní asistent zařadil poptávku jako <strong>" + ai.label + "</strong>. Odesílám přes Web3Forms…";
       }
 
-      if (iframe) {
-        iframe.onload = function () {
-          if (status) {
-            status.textContent = 'Poptávka byla odeslána do Make. Zkontrolujte historii scénáře, Google Sheets a e-mail ulrych.k@seznam.cz.';
-          }
-          try { form.reset(); } catch (e) {}
-        };
-      }
+      // Bez preventDefault: prohlížeč odešle formulář nativně na https://api.web3forms.com/submit
     });
+  }
+
+  function escapeHtml(value) {
+    return (value || "").toString().replace(/[&<>"']/g, function (char) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[char];
+    });
+  }
+
+  function mailtoFor(order) {
+    const d = order.data || {};
+    const subject = encodeURIComponent("Odpověď k objednávce – " + (d.sluzba || ""));
+    const body = encodeURIComponent(
+      "Dobrý den,\n\n" +
+      "děkuji za Vaši poptávku: " + (d.sluzba || "") + ".\n\n" +
+      "Navrhuji další postup:\n\n\n" +
+      "S úctou\nIng. Karel Ulrych\n"
+    );
+    return "mailto:" + encodeURIComponent(d.email || "") + "?subject=" + subject + "&body=" + body;
+  }
+
+  function renderAdmin() {
+    const root = document.getElementById("admin-orders");
+    if (!root) return;
+
+    const orders = JSON.parse(localStorage.getItem(ADMIN_KEY) || "[]");
+    const counts = orders.reduce((acc, o) => {
+      acc[o.ai.label] = (acc[o.ai.label] || 0) + 1;
+      return acc;
+    }, { Normal: 0, Hot: 0, Priorita: 0 });
+
+    const cards = `
+      <div class="admin-stats">
+        <div class="card"><strong>Normal</strong><span>${counts.Normal || 0}</span></div>
+        <div class="card"><strong>Hot</strong><span>${counts.Hot || 0}</span></div>
+        <div class="card"><strong>Priorita</strong><span>${counts.Priorita || 0}</span></div>
+      </div>
+    `;
+
+    if (orders.length === 0) {
+      root.innerHTML = cards + '<div class="card"><p>Zatím zde není žádná objednávka z tohoto prohlížeče.</p><p>Nové poptávky zároveň chodí na e-mail <strong>ulrych.k@seznam.cz</strong>.</p></div>';
+      return;
+    }
+
+    const rows = orders.map((o, idx) => {
+      const d = o.data || {};
+      const cls = o.ai.label === "Priorita" ? "priority" : o.ai.label === "Hot" ? "hot" : "normal";
+      return `
+        <article class="card admin-order ${cls}">
+          <div class="admin-row">
+            <div>
+              <span class="pill-soft">${escapeHtml(o.ai.label)}</span>
+              <h3>${escapeHtml(d.sluzba || "Bez služby")}</h3>
+              <p><strong>${escapeHtml(d.jmeno || "")}</strong> · ${escapeHtml(d.email || "")} · ${escapeHtml(d.telefon || "")}</p>
+              <p><strong>Vytvořeno:</strong> ${escapeHtml(o.createdAt)} · <strong>Stav:</strong> ${escapeHtml(o.status)}</p>
+            </div>
+            <div class="admin-actions">
+              <a class="btn primary" href="${mailtoFor(o)}">Připravit odpověď</a>
+              <button class="btn ghost" data-approve="${idx}">Schválit</button>
+              <button class="btn ghost" data-delete="${idx}">Smazat</button>
+            </div>
+          </div>
+          <p><strong>Důvod třídění:</strong> ${escapeHtml(o.ai.reason)}</p>
+          <p><strong>Souhrn:</strong> ${escapeHtml(o.ai.summary)}</p>
+          <p><strong>Téma:</strong><br>${escapeHtml(d.zprava || "")}</p>
+        </article>
+      `;
+    }).join("");
+
+    root.innerHTML = cards + rows;
+
+    root.querySelectorAll("[data-approve]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const i = Number(btn.getAttribute("data-approve"));
+        orders[i].status = "Schváleno Karlem";
+        localStorage.setItem(ADMIN_KEY, JSON.stringify(orders));
+        renderAdmin();
+      });
+    });
+
+    root.querySelectorAll("[data-delete]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const i = Number(btn.getAttribute("data-delete"));
+        if (confirm("Opravdu smazat objednávku z lokální administrace?")) {
+          orders.splice(i, 1);
+          localStorage.setItem(ADMIN_KEY, JSON.stringify(orders));
+          renderAdmin();
+        }
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    handleContactForm();
+    renderAdmin();
   });
 })();
