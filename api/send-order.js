@@ -36,7 +36,7 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ error: 'E-mailová služba není nastavena.' });
     }
 
-    const from = process.env.ORDER_FROM_EMAIL || 'Karel Ulrych <onboarding@resend.dev>';
+    const from = process.env.ORDER_FROM_EMAIL || 'Objednávky Karel Ulrych <objednavky@karelulrych.cz>';
     const subject = `Nová objednávka – ${String(sluzba).slice(0, 100)}`;
     const html = `
       <h2>Nová objednávka z karelulrych.cz</h2>
