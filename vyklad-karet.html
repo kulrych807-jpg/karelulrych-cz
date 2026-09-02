@@ -43,6 +43,14 @@
       .cards { gap: 22px; }
       .service-card.large { margin-bottom: 18px; }
     }
+  
+    .cards.cards-spaced { gap: 32px; align-items: stretch; }
+    .cards-spaced .service-card { display: flex; flex-direction: column; gap: 14px; }
+    .cards-spaced .service-card p { margin-bottom: 0; }
+    .cards-spaced .price-line { display: block; margin: 10px 0 14px; font-size: 1.35rem; }
+    .cards-spaced .btn { width: fit-content; margin-top: auto; }
+    @media (max-width: 720px) { .cards.cards-spaced { gap: 24px; } .cards-spaced .btn { width: 100%; text-align:center; } }
+
   </style>
 </head>
 <body>
@@ -68,24 +76,41 @@
 </header>
   
 <main>
-  <section class="page-hero"><div class="container"><span class="eyebrow">Karty</span><h1>Výklad karet</h1><p class="lead">Tři cesty, jeden záměr: podívat se na situaci citlivě, symbolicky a bez nátlaku.</p></div></section>
-  <section class="section"><div class="container cards">
-    <article class="service-card large">
-      <span>Orákulum</span>
-      <h2>Mystické Šamanské Orákulum</h2>
-      <p>Pro hlubší vedení, otázky životního směru, vnitřních bloků a archetypálních témat.</p><strong class="price-line">1 000 Kč</strong>
-      <a href="kontakt.html">Objednat výklad</a></article>
-    <article class="service-card large">
-      <span>Tarot</span>
-      <h2>OSHO Zen Tarot</h2>
-      <p>Pro vhled do přítomnosti, emocí, vztahů a postoje, který právě nejvíce ovlivňuje situaci.</p><strong class="price-line">800 Kč</strong>
-      <a href="kontakt.html">Objednat výklad</a></article>
-    <article class="service-card large featured">
-      <span>Čakry</span>
-      <h2>Čakrové karty</h2>
-      <p>Léčení mysli, těla i ducha. Výklad pro harmonizaci, jemné pojmenování bloků a návrat k sobě.</p><strong class="price-line">1 200 Kč</strong>
-      <a href="kontakt.html">Objednat výklad</a></article>
-  </div></section>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Karty</span>
+      <h1>Výklad karet</h1>
+      <p class="lead">Tři cesty, jeden záměr: podívat se na situaci citlivě, symbolicky a bez nátlaku.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cards cards-spaced">
+      <article class="service-card large">
+        <span>Orákulum</span>
+        <h2>Mystické Šamanské Orákulum</h2>
+        <p>Pro hlubší vedení, otázky životního směru, vnitřních bloků a archetypálních témat.</p>
+        <strong class="price-line">1 000 Kč</strong>
+        <a class="btn btn-primary" href="kontakt.html">Objednat výklad</a>
+      </article>
+
+      <article class="service-card large">
+        <span>Tarot</span>
+        <h2>OSHO Zen Tarot</h2>
+        <p>Pro vhled do přítomnosti, emocí, vztahů a postoje, který právě nejvíce ovlivňuje situaci.</p>
+        <strong class="price-line">800 Kč</strong>
+        <a class="btn btn-primary" href="kontakt.html">Objednat výklad</a>
+      </article>
+
+      <article class="service-card large featured">
+        <span>Čakry</span>
+        <h2>Čakrové karty</h2>
+        <p>Výklad pro harmonizaci mysli, těla i ducha, jemné pojmenování bloků a návrat k sobě.</p>
+        <strong class="price-line">1 200 Kč</strong>
+        <a class="btn btn-primary" href="kontakt.html">Objednat výklad</a>
+      </article>
+    </div>
+  </section>
 </main>
 
   <footer class="footer">
