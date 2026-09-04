@@ -9,6 +9,51 @@ function esc(value = '') {
     .replace(/'/g, '&#039;');
 }
 
+function normalize(value = '') {
+  return String(value).toLocaleLowerCase('cs-CZ').trim();
+}
+
+function classifyOrder(data) {
+  const message = normalize(data.zprava);
+  let score = 0;
+  const reasons = [];
+
+  if (String(data.telefon || '').replace(/\D/g, '').length >= 9) {
+    score += 1;
+    reasons.push('uveden telefon');
+  }
+  if (data.datum_narozeni && data.misto_narozeni) {
+    score += 1;
+    reasons.push('dodány základní podklady');
+  }
+  if (data.sluzba) {
+    score += 2;
+    reasons.push('vybrána konkrétní služba');
+  }
+  if (message.length >= 120) {
+    score += 1;
+    reasons.push('podrobně popsaná poptávka');
+  }
+  if (/\b(dnes|zítra|urgentně|naléhavě|co nejdříve|ihned|rychle)\b/i.test(message)) {
+    score += 4;
+    reasons.push('požadováno rychlé vyřízení');
+  }
+  if (/\b(objednávám|chci objednat|mám zájem|prosím o termín)\b/i.test(message)) {
+    score += 2;
+    reasons.push('výslovný zájem o objednávku');
+  }
+
+  let label = 'Normal';
+  if (score >= 6) label = 'Priorita';
+  else if (score >= 2) label = 'Hot';
+
+  return {
+    label,
+    score,
+    reason: reasons.length ? reasons.join('; ') : 'běžná poptávka'
+  };
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -30,6 +75,10 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'Neplatný e-mail.' });
     }
 
+    const classification = classifyOrder({
+      telefon, sluzba, datum_narozeni, misto_narozeni, zprava
+    });
+
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
       console.error('RESEND_API_KEY is missing');
@@ -37,9 +86,13 @@ module.exports = async function handler(req, res) {
     }
 
     const from = process.env.ORDER_FROM_EMAIL || 'Objednávky Karel Ulrych <objednavky@karelulrych.cz>';
-    const subject = `Nová objednávka – ${String(sluzba).slice(0, 100)}`;
+    const subject = `[${classification.label}] Nová objednávka – ${String(sluzba).slice(0, 100)}`;
     const html = `
       <h2>Nová objednávka z karelulrych.cz</h2>
+      <p><strong>Interní priorita:</strong> ${esc(classification.label)}</p>
+      <p><strong>Skóre:</strong> ${esc(classification.score)}</p>
+      <p><strong>Důvod třídění:</strong> ${esc(classification.reason)}</p>
+      <hr>
       <p><strong>Jméno:</strong> ${esc(jmeno)}</p>
       <p><strong>E-mail:</strong> ${esc(email)}</p>
       <p><strong>Telefon:</strong> ${esc(telefon)}</p>
