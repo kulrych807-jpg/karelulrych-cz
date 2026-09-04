@@ -1,5 +1,4 @@
 User-agent: *
 Disallow: /admin.html
-Disallow: /ai-agent.html
 
 Sitemap: https://www.karelulrych.cz/sitemap.xml
