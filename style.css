@@ -173,7 +173,7 @@ ul{padding-left:20px}
 }
 
 @media (max-width: 900px){
-  .nav-links{display:none}
+  .nav-links{display:flex;flex-wrap:wrap;justify-content:center;gap:9px 12px;font-size:13px;padding:10px 0 12px}
   .hero-grid,.split{grid-template-columns:1fr}
   .pricing-grid{grid-template-columns:1fr}
   .problem-grid{grid-template-columns:1fr 1fr}
