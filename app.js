@@ -3,9 +3,7 @@
     ja: { title: "Osobní horoskop", text: "Pomůže vám lépe porozumět sobě, talentům a životním tématům.", href: "kontakt.html?sluzba=osobni-horoskop" },
     vztah: { title: "Partnerský horoskop", text: "Ukáže dynamiku vztahu, komunikaci, soulad i opakující se vzorce.", href: "kontakt.html?sluzba=partnersky-horoskop" },
     budoucnost: { title: "Prognóza na 3 roky", text: "Nabídne širší orientaci v důležitých obdobích, změnách a možnostech.", href: "kontakt.html?sluzba=prognoza-na-3-roky" },
-    rozhodnuti: { title: "OSHO Zen Tarot", text: "Podpoří nadhled nad současnou situací a vědomější rozhodnutí.", href: "kontakt.html?sluzba=osho-zen-tarot" },
-    energie: { title: "Reiki harmonizace", text: "Jemná podpora pro zklidnění, uvolnění a energetickou rovnováhu.", href: "kontakt.html?sluzba=reiki" },
-    duchovni: { title: "Čakrové karty", text: "Výklad zaměřený na energetická témata a vnitřní harmonii.", href: "kontakt.html?sluzba=cakrove-karty" }
+    energie: { title: "Reiki léčení", text: "Prémiová služba zaměřená na zklidnění, uvolnění a energetickou harmonizaci.", href: "kontakt.html?sluzba=reiki" }
   };
   function initRecommendation() {
     const button = document.getElementById("recommendBtn");
