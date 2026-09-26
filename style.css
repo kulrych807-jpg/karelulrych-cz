@@ -385,85 +385,160 @@ ul{padding-left:20px}
   }
 }
 
-/* GREEN MORNING RESTORE 2026-09-26 */
+/* MARBLE GREEN SITE 2026-09-26 */
 :root{
-  --bg:#08261d;
-  --bg2:#10382c;
-  --card:#0f3026;
-  --ink:#f7f2e8;
-  --muted:#bbb6ad;
-  --gold:#d7c58a;
-  --rose:#66ad82;
-  --violet:#2f8f68;
-  --aqua:#88cbb5;
-  --cream:#f6f0df;
-  --line:rgba(215,197,138,.28);
-  --shadow:0 24px 70px rgba(0,0,0,.36);
+  --bg:#eef4ee;
+  --bg2:#e3ece5;
+  --card:#fbfcf8;
+  --ink:#203127;
+  --muted:#66766b;
+  --gold:#b79b5b;
+  --rose:#86a98f;
+  --violet:#6f977c;
+  --aqua:#a9c7b3;
+  --cream:#f8f7f1;
+  --line:rgba(54,82,64,.16);
+  --shadow:0 24px 70px rgba(49,72,57,.14);
+  --radius:26px;
 }
+html{background:#e8efe9}
 body{
   color:var(--ink);
-  background:
-    radial-gradient(circle at 10% 5%,rgba(47,143,104,.28),transparent 30%),
-    radial-gradient(circle at 90% 12%,rgba(215,197,138,.10),transparent 28%),
-    linear-gradient(180deg,#061b15 0%,var(--bg2) 55%,var(--bg) 100%);
+  background-color:#e9f0ea;
+  background-image:
+    linear-gradient(115deg,rgba(255,255,255,.76),rgba(255,255,255,.28) 28%,rgba(163,188,169,.18) 46%,rgba(255,255,255,.52) 62%,rgba(145,171,151,.13) 78%,rgba(255,255,255,.72)),
+    radial-gradient(ellipse at 12% 18%,rgba(255,255,255,.96) 0 11%,transparent 12% 100%),
+    radial-gradient(ellipse at 78% 8%,rgba(120,150,130,.10) 0 6%,transparent 7% 100%),
+    repeating-linear-gradient(128deg,transparent 0 86px,rgba(95,126,104,.055) 87px 89px,transparent 90px 172px),
+    repeating-linear-gradient(36deg,transparent 0 130px,rgba(255,255,255,.32) 132px 135px,transparent 136px 250px);
+  background-attachment:fixed;
 }
-.nav{
-  background:rgba(6,27,21,.94);
+.site-header,.nav{
+  background:rgba(244,248,244,.91);
+  backdrop-filter:blur(18px);
   border-bottom:1px solid var(--line);
-  box-shadow:0 10px 28px rgba(0,0,0,.15);
+  box-shadow:0 10px 28px rgba(49,72,57,.08);
 }
-.logo{color:var(--ink)}
-.logo-mark{background:linear-gradient(135deg,var(--gold),#79bd91,var(--violet));box-shadow:0 0 0 7px rgba(215,197,138,.11)}
-.nav-links{color:var(--muted)}
+.brand,.logo{color:var(--ink)}
+.brand-mark,.logo-mark{color:#557461}
+.nav-links{color:#52645a}
 .nav-links>a,.nav-group>summary{
-  display:flex;align-items:center;min-height:42px;padding:0 11px;border-radius:12px;
-  color:var(--muted);font-weight:750;cursor:pointer;list-style:none;white-space:nowrap
+  color:#52645a;
+  font-weight:750;
 }
-.nav-links>a:hover,.nav-group>summary:hover,.nav-group[open]>summary{color:var(--ink);background:rgba(255,255,255,.07)}
-.nav-group{position:relative}
-.nav-group>summary::-webkit-details-marker{display:none}
-.nav-group>summary::after{content:"▾";margin-left:7px;color:var(--gold);font-size:11px}
+.nav-links>a:hover,.nav-group>summary:hover,.nav-group[open]>summary{
+  color:#203127;
+  background:rgba(87,119,97,.08);
+}
 .nav-dropdown{
-  display:none;position:absolute;top:48px;left:0;min-width:250px;padding:9px;
-  background:#09251c;border:1px solid var(--line);border-radius:16px;
-  box-shadow:0 20px 45px rgba(0,0,0,.38);z-index:80
+  background:rgba(250,252,248,.98);
+  border:1px solid var(--line);
+  box-shadow:0 20px 45px rgba(49,72,57,.16);
 }
-.nav-group[open] .nav-dropdown{display:grid;gap:4px}
-.nav-dropdown a{padding:11px 12px;border-radius:10px;color:var(--muted);font-weight:700}
-.nav-dropdown a:hover{background:rgba(215,197,138,.10);color:var(--ink)}
-.nav-cta{background:linear-gradient(135deg,var(--gold),#f2dda0)!important;color:#0b2018!important;border:0!important}
-.hero:before{background:radial-gradient(circle,rgba(47,143,104,.26),transparent 68%)}
-.kicker,.eyebrow,.tag{color:var(--gold)}
-.lead,.section-head p,.price-card p,.contact-card p,.contact-details p{color:var(--muted)}
-.trust-row span{background:rgba(255,255,255,.055);border:1px solid var(--line);color:var(--muted)}
-.hero-card,.price-card,.card,.advisor,.recommendation,.contact-card,.certificate-card,.content-card,.certificate-mini,.order-form{
-  background:rgba(255,255,255,.055);
-  border-color:var(--line);
+.nav-dropdown a{color:#52645a}
+.nav-dropdown a:hover{background:rgba(87,119,97,.08);color:#203127}
+.nav-cta{
+  background:linear-gradient(135deg,#88ad92,#6f977c)!important;
+  color:white!important;
+  border:0!important;
+}
+.hero{
+  position:relative;
+  background:
+    linear-gradient(90deg,rgba(245,249,245,.88),rgba(245,249,245,.68)),
+    linear-gradient(115deg,rgba(255,255,255,.5),rgba(129,157,137,.08));
+}
+.hero:before{
+  background:radial-gradient(circle,rgba(113,153,126,.18),transparent 68%);
+}
+.hero-card{
+  background:rgba(252,253,249,.86);
+  border:1px solid rgba(75,103,83,.14);
+  box-shadow:0 28px 70px rgba(49,72,57,.15);
+}
+.portrait{
+  border:1px solid rgba(75,103,83,.12);
+  box-shadow:0 14px 34px rgba(49,72,57,.10);
+}
+.portrait-note{
+  background:rgba(250,252,248,.94);
   color:var(--ink);
-  box-shadow:var(--shadow);
+  border:1px solid rgba(75,103,83,.12);
 }
-.portrait-note{background:rgba(6,27,21,.94);color:var(--ink);border:1px solid var(--line)}
-.price-card.featured{background:linear-gradient(180deg,rgba(215,197,138,.11),rgba(255,255,255,.055));border-color:rgba(215,197,138,.42)}
-.reiki-card{background:linear-gradient(180deg,rgba(47,143,104,.17),rgba(255,255,255,.055))}
-.price{color:var(--gold)}
-.tag{background:rgba(215,197,138,.10)}
-.soft-band{background:linear-gradient(135deg,#061b15,#123c2f);border-block:1px solid var(--line)}
-.contact-strip{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(47,143,104,.08))}
-.btn{border-color:var(--line);color:var(--ink)}
-.btn.primary{background:linear-gradient(135deg,var(--gold),#f2dda0);color:#0b2018}
-.btn.secondary{background:rgba(255,255,255,.055);color:var(--ink)}
+.kicker,.eyebrow,.tag{color:#5f8169}
+.lead,.section-head p,.price-card p,.contact-card p,.contact-details p{color:var(--muted)}
+.trust-row span{
+  background:rgba(255,255,255,.68);
+  border:1px solid var(--line);
+  color:#52645a;
+}
+.soft-band{
+  background:
+    linear-gradient(135deg,rgba(102,137,111,.96),rgba(75,108,86,.97)),
+    repeating-linear-gradient(128deg,transparent 0 92px,rgba(255,255,255,.06) 93px 95px,transparent 96px 180px);
+  color:white;
+  border-block:1px solid rgba(255,255,255,.12);
+}
+.soft-band .lead,.soft-band p,.soft-band .section-head p{color:rgba(255,255,255,.82)}
+.price-card,.card,.advisor,.recommendation,.contact-card,.certificate-card,.content-card,.certificate-mini,.order-form,.about-copy,.about-photo{
+  background:rgba(251,252,248,.82);
+  border:1px solid rgba(75,103,83,.12);
+  color:var(--ink);
+  box-shadow:0 18px 46px rgba(49,72,57,.10);
+  backdrop-filter:blur(10px);
+}
+.price-card.featured{
+  background:linear-gradient(180deg,rgba(244,249,243,.96),rgba(252,253,249,.88));
+  border-color:rgba(111,151,124,.30);
+}
+.reiki-card{
+  background:linear-gradient(180deg,rgba(231,241,233,.96),rgba(252,253,249,.88));
+}
+.price{color:#486652}
+.tag{background:rgba(111,151,124,.10)}
+.btn{
+  border-color:rgba(75,103,83,.18);
+  color:var(--ink);
+}
+.btn.primary{
+  background:linear-gradient(135deg,#88ad92,#6f977c);
+  color:white;
+  border:0;
+}
+.btn.secondary{
+  background:rgba(255,255,255,.72);
+  color:#33483a;
+}
+.btn:hover{box-shadow:0 14px 30px rgba(49,72,57,.14)}
+.contact-strip,.about-section{
+  background:
+    linear-gradient(180deg,rgba(251,252,248,.72),rgba(232,240,233,.76));
+}
 input,select,textarea{
-  background:#0a251c!important;color:var(--ink)!important;border-color:rgba(215,197,138,.24)!important
+  background:rgba(255,255,255,.86)!important;
+  color:#203127!important;
+  border-color:rgba(75,103,83,.18)!important;
 }
-input::placeholder,textarea::placeholder{color:#9fa99f}
-.footer{background:#061b15;color:var(--muted);border-top:1px solid var(--line)}
-.footer .logo{color:var(--ink)}
-.footer-bottom{border-color:var(--line)}
+input::placeholder,textarea::placeholder{color:#87958b}
+.pill-soft{
+  background:rgba(111,151,124,.10);
+  color:#4d6e58;
+}
+.form-status,.form-status.ok{
+  background:rgba(111,151,124,.10);
+  color:#3d5b48;
+}
+.order-teaser .split-card{
+  background:rgba(251,252,248,.86);
+  border:1px solid rgba(75,103,83,.12);
+}
+.footer{
+  background:#2e4636;
+  color:rgba(255,255,255,.78);
+  border-top:1px solid rgba(255,255,255,.12);
+}
+.footer .logo,.footer .brand{color:white}
+.footer-bottom{border-color:rgba(255,255,255,.14)}
 @media (max-width:900px){
-  .nav-inner{align-items:flex-start;flex-direction:column;padding:10px 0}
-  .nav-links{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 0 10px}
-  .nav-links>a,.nav-group>summary{justify-content:center;border:1px solid var(--line);background:rgba(255,255,255,.035)}
-  .nav-group{grid-column:1/-1}
-  .nav-dropdown{position:static;min-width:0;margin-top:6px;box-shadow:none;background:rgba(0,0,0,.13)}
-  .nav-cta{grid-column:1/-1}
+  .nav-inner,.nav{align-items:flex-start}
 }
