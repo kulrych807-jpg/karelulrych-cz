@@ -384,3 +384,86 @@ ul{padding-left:20px}
     grid-template-columns: 1fr;
   }
 }
+
+/* GREEN MORNING RESTORE 2026-09-26 */
+:root{
+  --bg:#08261d;
+  --bg2:#10382c;
+  --card:#0f3026;
+  --ink:#f7f2e8;
+  --muted:#bbb6ad;
+  --gold:#d7c58a;
+  --rose:#66ad82;
+  --violet:#2f8f68;
+  --aqua:#88cbb5;
+  --cream:#f6f0df;
+  --line:rgba(215,197,138,.28);
+  --shadow:0 24px 70px rgba(0,0,0,.36);
+}
+body{
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 5%,rgba(47,143,104,.28),transparent 30%),
+    radial-gradient(circle at 90% 12%,rgba(215,197,138,.10),transparent 28%),
+    linear-gradient(180deg,#061b15 0%,var(--bg2) 55%,var(--bg) 100%);
+}
+.nav{
+  background:rgba(6,27,21,.94);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 10px 28px rgba(0,0,0,.15);
+}
+.logo{color:var(--ink)}
+.logo-mark{background:linear-gradient(135deg,var(--gold),#79bd91,var(--violet));box-shadow:0 0 0 7px rgba(215,197,138,.11)}
+.nav-links{color:var(--muted)}
+.nav-links>a,.nav-group>summary{
+  display:flex;align-items:center;min-height:42px;padding:0 11px;border-radius:12px;
+  color:var(--muted);font-weight:750;cursor:pointer;list-style:none;white-space:nowrap
+}
+.nav-links>a:hover,.nav-group>summary:hover,.nav-group[open]>summary{color:var(--ink);background:rgba(255,255,255,.07)}
+.nav-group{position:relative}
+.nav-group>summary::-webkit-details-marker{display:none}
+.nav-group>summary::after{content:"▾";margin-left:7px;color:var(--gold);font-size:11px}
+.nav-dropdown{
+  display:none;position:absolute;top:48px;left:0;min-width:250px;padding:9px;
+  background:#09251c;border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 20px 45px rgba(0,0,0,.38);z-index:80
+}
+.nav-group[open] .nav-dropdown{display:grid;gap:4px}
+.nav-dropdown a{padding:11px 12px;border-radius:10px;color:var(--muted);font-weight:700}
+.nav-dropdown a:hover{background:rgba(215,197,138,.10);color:var(--ink)}
+.nav-cta{background:linear-gradient(135deg,var(--gold),#f2dda0)!important;color:#0b2018!important;border:0!important}
+.hero:before{background:radial-gradient(circle,rgba(47,143,104,.26),transparent 68%)}
+.kicker,.eyebrow,.tag{color:var(--gold)}
+.lead,.section-head p,.price-card p,.contact-card p,.contact-details p{color:var(--muted)}
+.trust-row span{background:rgba(255,255,255,.055);border:1px solid var(--line);color:var(--muted)}
+.hero-card,.price-card,.card,.advisor,.recommendation,.contact-card,.certificate-card,.content-card,.certificate-mini,.order-form{
+  background:rgba(255,255,255,.055);
+  border-color:var(--line);
+  color:var(--ink);
+  box-shadow:var(--shadow);
+}
+.portrait-note{background:rgba(6,27,21,.94);color:var(--ink);border:1px solid var(--line)}
+.price-card.featured{background:linear-gradient(180deg,rgba(215,197,138,.11),rgba(255,255,255,.055));border-color:rgba(215,197,138,.42)}
+.reiki-card{background:linear-gradient(180deg,rgba(47,143,104,.17),rgba(255,255,255,.055))}
+.price{color:var(--gold)}
+.tag{background:rgba(215,197,138,.10)}
+.soft-band{background:linear-gradient(135deg,#061b15,#123c2f);border-block:1px solid var(--line)}
+.contact-strip{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(47,143,104,.08))}
+.btn{border-color:var(--line);color:var(--ink)}
+.btn.primary{background:linear-gradient(135deg,var(--gold),#f2dda0);color:#0b2018}
+.btn.secondary{background:rgba(255,255,255,.055);color:var(--ink)}
+input,select,textarea{
+  background:#0a251c!important;color:var(--ink)!important;border-color:rgba(215,197,138,.24)!important
+}
+input::placeholder,textarea::placeholder{color:#9fa99f}
+.footer{background:#061b15;color:var(--muted);border-top:1px solid var(--line)}
+.footer .logo{color:var(--ink)}
+.footer-bottom{border-color:var(--line)}
+@media (max-width:900px){
+  .nav-inner{align-items:flex-start;flex-direction:column;padding:10px 0}
+  .nav-links{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 0 10px}
+  .nav-links>a,.nav-group>summary{justify-content:center;border:1px solid var(--line);background:rgba(255,255,255,.035)}
+  .nav-group{grid-column:1/-1}
+  .nav-dropdown{position:static;min-width:0;margin-top:6px;box-shadow:none;background:rgba(0,0,0,.13)}
+  .nav-cta{grid-column:1/-1}
+}
