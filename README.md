@@ -1,5 +1,5 @@
-# Karel Ulrych – web služeb
+# karelulrych.cz
 
-Zdrojové soubory webu www.karelulrych.cz.
+Produkční web pro www.karelulrych.cz.
 
-Web prezentuje astrologické služby, výklady karet a Reiki. Objednávkový formulář odesílá poptávky přes serverovou funkci na e-mail provozovatele.
+Aktuální verze obsahuje zelený design webu a profilovou fotografii Karla Ulrycha.
