@@ -5,6 +5,7 @@
     budoucnost: { title: "Prognóza na 3 roky", text: "Nabídne širší orientaci v důležitých obdobích, změnách a možnostech.", href: "kontakt.html?sluzba=prognoza-na-3-roky" },
     energie: { title: "Reiki léčení", text: "Prémiová služba zaměřená na zklidnění, uvolnění a energetickou harmonizaci.", href: "kontakt.html?sluzba=reiki" }
   };
+
   function initRecommendation() {
     const button = document.getElementById("recommendBtn");
     const topic = document.getElementById("topic");
@@ -19,5 +20,24 @@
       output.innerHTML = "<h3>" + item.title + "</h3><p>" + item.text + "</p><a class=\"btn primary\" href=\"" + item.href + "\">Objednat službu</a>";
     });
   }
-  document.addEventListener("DOMContentLoaded", initRecommendation);
+
+  async function loadProfilePhoto() {
+    try {
+      const response = await fetch("karel-profile-compact.data", { cache: "no-store" });
+      if (!response.ok) return;
+      const base64 = (await response.text()).trim();
+      if (!base64) return;
+      const dataUrl = "data:image/jpeg;base64," + base64;
+      document.querySelectorAll('img[src="karel-ulrych-profil.jpg"]').forEach(function (img) {
+        img.src = dataUrl;
+      });
+    } catch (error) {
+      console.error("Profile photo load failed", error);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initRecommendation();
+    loadProfilePhoto();
+  });
 })();
