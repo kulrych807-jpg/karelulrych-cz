@@ -24,11 +24,39 @@
       </div>
     </section>
     <section class="section">
-      <div class="container narrow prose card">
-        <h2>Kde najdete nové objednávky</h2>
-        <p>Nové poptávky vyřizujte v e-mailové schránce <a href="mailto:ulrych.k@seznam.cz">ulrych.k@seznam.cz</a>. Každou objednávku potvrzuje Ing. Karel Ulrych osobně.</p>
+      <div class="container narrow">
+        <form class="form card" id="admin-login">
+          <h2>Přihlášení</h2>
+          <label>Heslo administrace<input id="admin-password" type="password" autocomplete="current-password" required></label>
+          <button class="btn primary" type="submit">Otevřít objednávky</button>
+          <p class="form-status" id="admin-status" role="status" aria-live="polite"></p>
+        </form>
+        <div id="admin-orders" hidden>
+          <div class="card" style="margin-bottom:1rem"><h2>Objednávky</h2><p>Řazení: Hot, Priorita, Normal. Novější objednávky jsou výše.</p><button class="btn" id="admin-refresh" type="button">Obnovit</button></div>
+          <div id="orders-list" style="display:grid;gap:1rem"></div>
+        </div>
       </div>
     </section>
   </main>
+  <script>
+  const escapeHtml=value=>String(value||'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  async function loadOrders(){
+    const token=sessionStorage.getItem('karelAdminToken');
+    if(!token)return;
+    const status=document.getElementById('admin-status');
+    status.textContent='Načítám objednávky…';
+    const response=await fetch('/api/admin-orders',{headers:{Authorization:`Bearer ${token}`}});
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(result.error||'Objednávky se nepodařilo načíst.');
+    document.getElementById('admin-login').hidden=true;
+    document.getElementById('admin-orders').hidden=false;
+    status.textContent='';
+    const list=document.getElementById('orders-list');
+    list.innerHTML=result.orders.length?result.orders.map(order=>`<article class="card"><p><strong>${escapeHtml(order.priority)}</strong> · ${new Date(order.createdAt).toLocaleString('cs-CZ')}</p><h3>${escapeHtml(order.jmeno)}</h3><p>${escapeHtml(order.sluzba)}</p><p><a href="mailto:${encodeURIComponent(order.email)}">${escapeHtml(order.email)}</a>${order.telefon?` · <a href="tel:${encodeURIComponent(order.telefon)}">${escapeHtml(order.telefon)}</a>`:''}</p>${order.datum_narozeni||order.cas_narozeni||order.misto_narozeni?`<p><strong>Narození:</strong> ${escapeHtml([order.datum_narozeni,order.cas_narozeni,order.misto_narozeni].filter(Boolean).join(' · '))}</p>`:''}<p>${escapeHtml(order.zprava||'Bez doplňující zprávy.').replace(/\n/g,'<br>')}</p></article>`).join(''):'<div class="card"><p>Zatím tu není žádná objednávka.</p></div>';
+  }
+  document.getElementById('admin-login').addEventListener('submit',async event=>{event.preventDefault();sessionStorage.setItem('karelAdminToken',document.getElementById('admin-password').value);try{await loadOrders()}catch(error){sessionStorage.removeItem('karelAdminToken');document.getElementById('admin-status').textContent=error.message}});
+  document.getElementById('admin-refresh').addEventListener('click',()=>loadOrders().catch(error=>{document.getElementById('admin-status').textContent=error.message}));
+  if(sessionStorage.getItem('karelAdminToken'))loadOrders().catch(()=>sessionStorage.removeItem('karelAdminToken'));
+  </script>
 </body>
 </html>

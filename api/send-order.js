@@ -1,4 +1,6 @@
 const RECIPIENT = 'ulrych.k@seznam.cz';
+const crypto = require('crypto');
+const { storeOrder } = require('./_orders');
 
 function esc(value = '') {
   return String(value)
@@ -44,8 +46,8 @@ function classifyOrder(data) {
   }
 
   let label = 'Normal';
-  if (score >= 6) label = 'Priorita';
-  else if (score >= 2) label = 'Hot';
+  if (score >= 6) label = 'Hot';
+  else if (score >= 2) label = 'Priorita';
 
   return {
     label,
@@ -78,6 +80,22 @@ module.exports = async function handler(req, res) {
     const classification = classifyOrder({
       telefon, sluzba, datum_narozeni, misto_narozeni, zprava
     });
+
+    const order = {
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      priority: classification.label,
+      priorityReason: classification.reason,
+      jmeno: String(jmeno).slice(0, 160),
+      email: String(email).slice(0, 254),
+      telefon: String(telefon).slice(0, 80),
+      sluzba: String(sluzba).slice(0, 160),
+      datum_narozeni: String(datum_narozeni).slice(0, 80),
+      cas_narozeni: String(cas_narozeni).slice(0, 80),
+      misto_narozeni: String(misto_narozeni).slice(0, 200),
+      zprava: String(zprava).slice(0, 8000)
+    };
+    await storeOrder(order);
 
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
@@ -126,7 +144,7 @@ module.exports = async function handler(req, res) {
       return res.status(502).json({ error: 'E-mail se nepodařilo odeslat.' });
     }
 
-    return res.status(200).json({ ok: true, id: result.id || null });
+    return res.status(200).json({ ok: true, id: order.id, emailId: result.id || null });
   } catch (error) {
     console.error('Order API error', error);
     return res.status(500).json({ error: 'Objednávku se nepodařilo odeslat.' });
