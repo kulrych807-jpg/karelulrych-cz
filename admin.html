@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Správa objednávek | Karel Ulrych</title>
   <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
   <meta name="description" content="Informace ke správě objednávek z webu Karel Ulrych.">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -29,7 +30,15 @@
           <h2>Přihlášení</h2>
           <label>Heslo administrace<input id="admin-password" type="password" autocomplete="current-password" required></label>
           <button class="btn primary" type="submit">Otevřít objednávky</button>
+          <button class="btn" id="admin-forgot" type="button">Nastavit nové heslo</button>
           <p class="form-status" id="admin-status" role="status" aria-live="polite"></p>
+        </form>
+        <form class="form card" id="admin-reset" hidden>
+          <h2>Nové heslo</h2>
+          <label>Nové heslo<input id="admin-new-password" type="password" autocomplete="new-password" minlength="10" required></label>
+          <label>Nové heslo znovu<input id="admin-new-password-check" type="password" autocomplete="new-password" minlength="10" required></label>
+          <button class="btn primary" type="submit">Uložit nové heslo</button>
+          <p class="form-status" id="admin-reset-status" role="status" aria-live="polite"></p>
         </form>
         <div id="admin-orders" hidden>
           <div class="card" style="margin-bottom:1rem"><h2>Objednávky</h2><p>Řazení: Hot, Priorita, Normal. Novější objednávky jsou výše.</p><button class="btn" id="admin-refresh" type="button">Obnovit</button></div>
@@ -56,7 +65,40 @@
   }
   document.getElementById('admin-login').addEventListener('submit',async event=>{event.preventDefault();sessionStorage.setItem('karelAdminToken',document.getElementById('admin-password').value);try{await loadOrders()}catch(error){sessionStorage.removeItem('karelAdminToken');document.getElementById('admin-status').textContent=error.message}});
   document.getElementById('admin-refresh').addEventListener('click',()=>loadOrders().catch(error=>{document.getElementById('admin-status').textContent=error.message}));
-  if(sessionStorage.getItem('karelAdminToken'))loadOrders().catch(()=>sessionStorage.removeItem('karelAdminToken'));
+  document.getElementById('admin-forgot').addEventListener('click',async()=>{
+    const status=document.getElementById('admin-status');
+    status.textContent='Odesílám e-mail…';
+    try{
+      const response=await fetch('/api/request-admin-reset',{method:'POST'});
+      const result=await response.json().catch(()=>({}));
+      if(!response.ok)throw new Error(result.error||'E-mail se nepodařilo odeslat.');
+      status.textContent='E-mail s odkazem je odeslaný. Odkaz platí 15 minut.';
+    }catch(error){status.textContent=error.message}
+  });
+  const resetToken=new URLSearchParams(location.search).get('reset');
+  if(resetToken){
+    sessionStorage.removeItem('karelAdminToken');
+    document.getElementById('admin-login').hidden=true;
+    document.getElementById('admin-reset').hidden=false;
+    history.replaceState({},'',location.pathname);
+  }else if(sessionStorage.getItem('karelAdminToken'))loadOrders().catch(()=>sessionStorage.removeItem('karelAdminToken'));
+  document.getElementById('admin-reset').addEventListener('submit',async event=>{
+    event.preventDefault();
+    const password=document.getElementById('admin-new-password').value;
+    const check=document.getElementById('admin-new-password-check').value;
+    const status=document.getElementById('admin-reset-status');
+    if(password!==check){status.textContent='Hesla se neshodují.';return}
+    status.textContent='Ukládám nové heslo…';
+    try{
+      const response=await fetch('/api/reset-admin-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:resetToken,password})});
+      const result=await response.json().catch(()=>({}));
+      if(!response.ok)throw new Error(result.error||'Heslo se nepodařilo změnit.');
+      sessionStorage.setItem('karelAdminToken',password);
+      status.textContent='Heslo je změněné. Otevírám objednávky…';
+      await loadOrders();
+      document.getElementById('admin-reset').hidden=true;
+    }catch(error){status.textContent=error.message}
+  });
   </script>
 </body>
 </html>

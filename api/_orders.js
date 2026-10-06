@@ -24,4 +24,4 @@ async function listOrders() {
   return (rows || []).map(row => JSON.parse(row));
 }
 
-module.exports = { storeOrder, listOrders };
+module.exports = { redis, storeOrder, listOrders };
