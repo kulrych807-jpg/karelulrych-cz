@@ -10,7 +10,9 @@ module.exports = async function handler(req, res) {
     const forwarded = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
     const ip = forwarded || 'unknown';
     const allowed = await redis(['SET', `karelulrych:admin:reset-limit:${ip}`, '1', 'NX', 'EX', 60]);
-    if (!allowed) return res.status(200).json({ ok: true });
+    if (!allowed) {
+      return res.status(429).json({ error: 'E-mail už byl odeslaný. Počkej chvíli, než si vyžádáš další.' });
+    }
 
     const token = await createResetToken();
     const baseUrl = `https://${req.headers.host || 'www.karelulrych.cz'}`;
