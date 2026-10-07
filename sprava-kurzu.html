@@ -1,0 +1,54 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow"><title>Správa kurzů a plateb | Karel Ulrych</title><link rel="stylesheet" href="style.css"></head><body><header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Karel Ulrych úvod">
+      <span class="brand-mark">✦</span>
+      <span>
+        <strong>Karel Ulrych</strong>
+        <small>Astrologie • Tarot • Reiki</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Hlavní navigace">
+      <a href="index.html">Úvod</a>
+      <a href="sluzby.html">Astrologie</a>
+      <a href="partnersky-horoskop.html">Partnerský horoskop</a>
+      <a href="osobni-horoskop.html">Osobní horoskop</a>
+      <a href="prognoza-na-3-roky.html">Prognóza na 3 roky</a>
+      <a href="vyklad-karet.html">Karty</a>
+      <a href="reiki.html">Reiki</a>
+      <a href="o-mne.html">O mně</a>
+      <a class="nav-cta" href="kontakt.html">Objednat</a>
+    </nav>
+  </div>
+</header><main><section class="page-hero"><div class="container"><h1>Správa kurzů a plateb</h1></div></section><section class="section"><div class="container"><form class="form card" id="admin-login"><label>Heslo stávající administrace<input id="password" type="password" required autocomplete="current-password"></label><button class="btn primary">Načíst přihlášky</button><p><a href="admin.html">Správa objednávek a obnova hesla</a></p></form><p id="status" role="status"></p><div id="members" style="display:grid;gap:20px;margin-top:20px"></div><form id="materials" class="form card" hidden style="margin-top:24px"><h2>Výukové materiály</h2><label>Program<select id="lesson-program"><option value="astrology">Základní studium astrologie</option><option value="postgraduate">Postgraduální studium astrologie</option><option value="reiki12">Reiki 1. a 2. stupeň</option><option value="reiki3">Mistr Reiki terapeut</option><option value="reiki4">Mistr Reiki učitel</option></select></label><button type="button" id="read-lessons" class="btn">Načíst materiály programu</button><p>Každá položka má nadpis, text a úroveň. Vkládejte vlastní výukové texty. Záznamy a soubory mají mít vlastní ochranu přístupu.</p><div id="lesson-editors"></div><button type="button" id="add-lesson" class="btn">Přidat materiál</button><button class="btn primary">Uložit materiály</button></form></div></section></main><footer class="footer">
+  <div class="container footer-grid footer-grid-3">
+    <div>
+      <div class="logo"><span class="logo-mark"></span><span>Ing. Karel Ulrych</span></div>
+      <p class="small">Horoskopy, výklad karet a Reiki jako seberozvojová a duchovní podpora. Nenahrazuje lékařskou, psychoterapeutickou, právní ani finanční péči.</p>
+    </div>
+    <div class="small">
+      <strong>Kontakt</strong><br>
+      <a href="tel:+420737477832">+420 737 477 832</a><br>
+      <a href="mailto:ulrych.k@seznam.cz">ulrych.k@seznam.cz</a><br>
+      Havířská 1989<br>
+      470 01 Česká Lípa<br>
+      Česká republika<br>
+      IČO: 05674654<br>
+      Číslo účtu: 2003038329/2010
+    </div>
+    <div class="small">
+      <strong>Rychlé odkazy</strong><br>
+      <a href="o-mne.html">O mně</a><br>
+      <a href="sluzby.html">Služby</a><br>
+      <a href="vyklad-karet.html">Výklad karet</a><br>
+      <a href="reiki.html">Reiki</a><br>
+      <a href="certifikat.html">Certifikát</a><br>
+      <a href="kontakt.html">Kontakt</a><br>
+      <a href="obchodni-podminky.html">Obchodní podmínky</a><br>
+      <a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© Ing. Karel Ulrych – všechna práva vyhrazena.</p>
+    <p>Karel Ulrych – vnitřní vedení s respektem a klidem.</p>
+  </div>
+</footer><script src="app.js"></script><script>async function call(data,admin=false){const r=await fetch('/api/courses',{method:'POST',headers:{'Content-Type':'application/json',...(admin?{Authorization:'Bearer '+document.getElementById('password').value}:{})},body:JSON.stringify(data)});const b=await r.json();if(!r.ok)throw new Error(b.error||'Požadavek se nepodařil.');return b;}const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let members=[];let lessonProgram='';const statuses={pending:'Čeká na potvrzení místa',approval:'Čeká na osobní schválení',approved:'Schváleno, pokyny k platbě',waitlist:'Čekací listina',active:'Platba potvrzena, aktivní',inactive:'Přístup pozastaven',graduate:'Absolvent'};async function load(){const b=await call({action:'admin-list'},true);members=b.members;document.getElementById('members').innerHTML=members.map((m,i)=>'<form class="card member" data-index="'+i+'"><h2>'+esc(m.name)+'</h2><p>'+esc(b.programs[m.program].name)+' · '+esc(m.email)+'</p><p>Variabilní symbol: '+esc(m.reference)+' · '+b.programs[m.program].price+' Kč</p><label>Stav<select name="status">'+Object.entries(statuses).map(([v,t])=>'<option value="'+v+'" '+(m.status===v?'selected':'')+'>'+t+'</option>').join('')+'</select></label><label>Počet skutečně přijatých plateb<input name="payments" type="number" min="0" max="'+b.programs[m.program].installments+'" value="'+m.payments+'" required></label><label>Zpřístupnit materiály do úrovně<input name="progress" type="number" min="0" max="200" value="'+m.progress+'" required></label><p>Platbu potvrďte až po kontrole bankovního účtu. Postgraduální program a vyšší Reiki stupně schvalujte pouze po ověření podmínek přijetí.</p><button class="btn primary">Uložit a případně poslat pokyny</button></form>').join('')||'<p>Zatím nejsou žádné přihlášky.</p>';document.querySelectorAll('.member').forEach(f=>f.onsubmit=async e=>{e.preventDefault();try{const m=members[Number(f.dataset.index)];const b=await call({action:'admin-update',key:m.key,status:f.elements.status.value,payments:Number(f.elements.payments.value),progress:Number(f.elements.progress.value)},true);document.getElementById('status').textContent=b.emailSent?'Uloženo.':'Uloženo, ale e-mail nebyl doručen. Pokyny pošlete osobně.';await load();}catch(x){document.getElementById('status').textContent=x.message;}});document.getElementById('materials').hidden=false;}document.getElementById('admin-login').onsubmit=async e=>{e.preventDefault();try{await load();}catch(x){document.getElementById('status').textContent=x.message;}};function editor(l={title:'',text:'',level:1}){const div=document.createElement('div');div.className='lesson-editor';div.innerHTML='<label>Nadpis<input name="title" maxlength="200" value="'+esc(l.title)+'"></label><label>Úroveň<input name="level" type="number" min="1" max="200" value="'+l.level+'"></label><label>Text<textarea name="text" rows="8" maxlength="50000">'+esc(l.text)+'</textarea></label><button type="button" class="btn">Odstranit z editoru</button>';div.querySelector('button').onclick=()=>div.remove();document.getElementById('lesson-editors').append(div);}document.getElementById('read-lessons').onclick=async()=>{try{lessonProgram=document.getElementById('lesson-program').value;const b=await call({action:'admin-lessons',program:lessonProgram},true);document.getElementById('lesson-editors').innerHTML='';b.lessons.forEach(editor);}catch(x){document.getElementById('status').textContent=x.message;}};document.getElementById('add-lesson').onclick=()=>editor();document.getElementById('materials').onsubmit=async e=>{e.preventDefault();try{const program=document.getElementById('lesson-program').value;if(program!==lessonProgram)throw new Error('Nejdříve načtěte materiály vybraného programu.');const lessons=[...document.querySelectorAll('.lesson-editor')].map(d=>({title:d.querySelector('[name=title]').value,text:d.querySelector('[name=text]').value,level:Number(d.querySelector('[name=level]').value)}));await call({action:'admin-save-lessons',program,lessons},true);document.getElementById('status').textContent='Materiály jsou uložené.';}catch(x){document.getElementById('status').textContent=x.message;}};</script></body></html>

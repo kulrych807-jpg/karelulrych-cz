@@ -542,3 +542,6 @@ input::placeholder,textarea::placeholder{color:#87958b}
 @media (max-width:900px){
   .nav-inner,.nav{align-items:flex-start}
 }
+
+/* Kurzy: izolované doplňky formulářů */
+.lesson-editor{padding:20px;margin:20px 0;border:1px solid #c6d7cb;border-radius:16px}.member label{display:block;margin:12px 0}.member input,.member select{display:block;width:100%;max-width:500px;padding:10px}[hidden]{display:none!important}
