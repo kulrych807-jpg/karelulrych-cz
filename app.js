@@ -12,6 +12,7 @@
     const output = document.getElementById("recommendation");
     if (!button || !topic || !output) return;
     button.addEventListener("click", function () {
+      output.classList.add("show");
       const item = recommendations[topic.value];
       if (!item) {
         output.textContent = "Nejprve vyberte oblast, kterou právě řešíte.";
