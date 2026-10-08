@@ -7,7 +7,7 @@ async function redis(command) {
 }
 const PREFIX = 'karelulrych:courses:v1:';
 const PROGRAMS = {
-  astrology: { name:'Základní studium astrologie', price:5400, installments:12, capacity:10 },
+  astrology: { name:'Základní studium astrologie', price:5400, installments:8, capacity:10 },
   postgraduate: { name:'Postgraduální studium astrologie', price:4500, installments:12, approval:true },
   reiki12: { name:'Reiki 1. a 2. stupeň', price:1500, installments:1, capacity:7 },
   reiki3: { name:'Mistr Reiki terapeut', price:3500, installments:1, approval:true },
@@ -109,7 +109,7 @@ module.exports=async (req,res)=>{
         await redis(['SET',key,JSON.stringify(member)]);
         let emailSent=true;
         try {
-          if(status==='approved'&&previous!=='approved')await mail(member.email,'Pokyny k platbě: '+p.name,`Dobrý den, vaše přihláška je schválená.\nProgram: ${p.name}\nČástka: ${p.price} Kč${p.installments>1?(member.program==='astrology'?' každé 2 měsíce, celkem ':' měsíčně, celkem ')+p.installments+' plateb':''}\nÚčet: 2003038329/2010\nVariabilní symbol: ${member.reference}\nPřístup aktivuji po potvrzení přijaté platby.\nKarel Ulrych`);
+          if(status==='approved'&&previous!=='approved')await mail(member.email,'Pokyny k platbě: '+p.name,`Dobrý den, vaše přihláška je schválená.\nProgram: ${p.name}\nČástka: ${p.price} Kč${p.installments>1?(member.program==='astrology'?' každé 3 měsíce, celkem ':' měsíčně, celkem ')+p.installments+' plateb':''}\nÚčet: 2003038329/2010\nVariabilní symbol: ${member.reference}\nPřístup aktivuji po potvrzení přijaté platby.\nKarel Ulrych`);
           if(status==='active'&&previous!=='active')await mail(member.email,'Členský přístup je aktivní',`Dobrý den, platbu jsem potvrdil a váš přístup je aktivní. Přihlásit se můžete zde:\nhttps://www.karelulrych.cz/clenska-sekce.html\nKarel Ulrych`);
         } catch {emailSent=false;}
         return res.status(200).json({ok:true,emailSent});
